@@ -5,15 +5,16 @@ if (Meteor.isClient) {
 			m: [ 
 				'media', 
 				'multilateral',
-				'multiplexed',
-				'multiplexing',
-				'multicasting',
+				'multiplex',
+				'multicast',
 				'messaging',
 				'massaging',
-				'moving',
-				'meaty',
+				'movement',
+				'meat',
 				'moribund',
-				'massive'
+				'massive',
+				'most',
+				'mostly'
 			],
 			t: [
 				'timeline',
@@ -23,12 +24,14 @@ if (Meteor.isClient) {
 				'tool',
 				'tweaking',
 				'tidal',
-				'turing'
+				'turing',
+				'tooth',
+				'travesty'
 			],
 			o: [
 				'operational',
 				'operations',
-				'overview',
+				'overhead',
 				'objectified',
 				'object',
 				'organizer',
@@ -36,7 +39,9 @@ if (Meteor.isClient) {
 				'obectivist',
 				'orthagonal',
 				'ornithilogical',
-				'ontological'
+				'ontological',
+				'operatic',
+				'over'
 			],
 			s: [
 				'syndicator',
@@ -49,7 +54,10 @@ if (Meteor.isClient) {
 				'suck',
 				'simacularum',
 				'simaculara',
-				'singularity'
+				'singularity',
+				'signage',
+				'semiotics',
+				'seaside'
 			]
 		};
 		function getRandomWord (letter) {
