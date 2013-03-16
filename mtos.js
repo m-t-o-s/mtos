@@ -48,7 +48,8 @@ if (Meteor.isClient) {
 				'sensation',
 				'suck',
 				'simacularum',
-				'simaculara'
+				'simaculara',
+				'singularity'
 			]
 		};
 		function getRandomWord (letter) {
