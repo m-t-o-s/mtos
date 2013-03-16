@@ -47,6 +47,9 @@ Wanted Site Parsers
 * schema.org
 * open graph
 * RDFa
+* bandcamp
+* soundcloud
+* rdio
 * zeega
 * popcorn.js
 * kaltura
