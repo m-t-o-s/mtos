@@ -1,0 +1,65 @@
+<head>
+	<title>&lt;MTOS&gt; everything you like </title>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			{{loginButtons align="right"}}
+			{{> notifications }}
+			{{> welcome }}
+			{{> menu }}
+		</header>
+	</div>
+</body>
+
+<template name="welcome">
+	<section>
+		<div class="">
+			<div class="">
+				<h3>welcome to mtos</h3>
+				<p>{{greeting}}</p>
+			</div>
+		</div>
+	</section>
+</template>
+
+<template name="menu">
+	<section>
+		<div class="navbar navbar-fixed-bottom navbar-inverse">
+			<div class="navbar-inner">
+				<a class="brand" href="http://mtos.co/">mtos</a>
+				<ul class="nav">
+				</ul>
+			</div>
+		</div>
+	</section>
+</template>
+
+<template name="notifications">
+	<section>
+		<ul class="notifications">
+			{{#each notification }}
+				<li>
+					<a target="_blank" href="{{url}}">{{title}}</a>
+					<span>{{summary}}</span>
+				</li>
+			{{/each}}
+		</ul>
+	</section>
+</template>
+
+<template name="playlist">
+</template>
+
+<template name="player">
+</template>
+
+<template name="reader">
+</template>
+
+<template name="tagger">
+</template>
+
+<template name="commenter">
+</template>
