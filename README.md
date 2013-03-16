@@ -42,7 +42,7 @@ none
 Wanted Site Parsers
 ===================
 
-* all implemented networks
+* all implemented sites
 * oEmbed
 * schema.org
 * open graph
