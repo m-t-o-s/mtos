@@ -6,7 +6,7 @@ mtos
 Basic Content Types
 ===================
 
-supplied by oEmbed and Shcema.org definitions.
+Supplied by oEmbed and Schema.org definitions.
 (if that's not near enought to Wordpress/Facebook/Tumblr/Google+ standards,
 define a subset for the leviathans)
 
