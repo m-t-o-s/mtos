@@ -7,8 +7,8 @@ Basic Content Types
 ===================
 
 supplied by oEmbed and Shcema.org definitions.
-(if that's not near enought to Tumblr/Wordpress/Facebook standards,
-define a subset for those)
+(if that's not near enought to Wordpress/Facebook/Tumblr/Google+ standards,
+define a subset for the leviathans)
 
 Implemented Sites
 =================
