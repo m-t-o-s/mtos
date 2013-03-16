@@ -32,7 +32,11 @@ if (Meteor.isClient) {
 				'objectified',
 				'object',
 				'organizer',
-				'organized'
+				'organized',
+				'obectivist',
+				'orthagonal',
+				'ornithilogical',
+				'ontological'
 			],
 			s: [
 				'syndicator',
