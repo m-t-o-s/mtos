@@ -1,4 +1,33 @@
 /* CSS declarations go here */
+html,body{
+	height:100%;
+	margin:0;
+	padding:4px;
+	overflow:hidden;
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	color: rgba(255,255,255, .70);
+	background-color: black;
+}
 #login-buttons { 
 	float:right;
+	background-color: rgba(255,255,255, .10);
+	border-radius:10px;
+	padding:15px;
+}
+#login-dropdown-list {
+	background-color: rgba(0,0,0, .80);
+	color: rgba(255,255,255, .70);
+
+}
+div.hero-unit {
+	background-color: rgba(255,255,255, .10);
+}
+.navbar-fixed-bottom {
+	position:absolute;
+	bottom:0;
+	padding-left:10px;
+	padding-right:10px;
 }
