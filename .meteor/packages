@@ -8,8 +8,7 @@ insecure
 accounts-twitter
 accounts-password
 preserve-inputs
-accounts-ui
-stylus
-bootstrap-less
 accounts-google
 accounts-facebook
+accounts-ui
+bootstrap
