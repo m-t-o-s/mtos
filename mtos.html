@@ -1,35 +1,41 @@
 <head>
 	<title> everything you like </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
 </head>
 
 <body>
-	<div class="container">
-		<header>
-			{{loginButtons align="right"}}
-			{{> notifications }}
-			{{> welcome }}
-			{{> menu }}
-		</header>
-	</div>
+		<div class="container-fluid">
+			<header>
+				<section id="user">
+				{{loginButtons align="right"}}
+				</section>
+				{{> notifications }}
+			</header>
+			<content>
+				{{> playlist }}
+				{{> player }}
+				{{> reader }}
+			</content>
+			<aside>
+				{{> tagger }}
+				{{> commenter }}
+			</aside>
+			<footer>
+				{{> menu }}
+			</footer>
+		</div>
 </body>
 
-<template name="welcome">
-	<section>
-		<div class="">
-			<div class="">
-				<h3>welcome to mtos</h3>
-				<p>{{greeting}}</p>
-			</div>
-		</div>
-	</section>
-</template>
-
 <template name="menu">
-	<section>
-		<div class="navbar navbar-fixed-bottom navbar-inverse">
+	<section id="menu">
+		<div class="navbar navbar-inverse navbar-fixed-bottom">
 			<div class="navbar-inner">
-				<a class="brand" href="http://mtos.co/">mtos</a>
+				<a class="brand" href="http://mtos.co/">{{currentUser.profile.name}}</a>
 				<ul class="nav">
+					<li><a>test</a></li>
+					<li><a>test</a></li>
+					<li><a>test</a></li>
+					<li><a>test</a></li>
 				</ul>
 			</div>
 		</div>
@@ -37,7 +43,7 @@
 </template>
 
 <template name="notifications">
-	<section>
+	<section id="notifications">
 		<ul class="notifications">
 			{{#each notification }}
 				<li>
@@ -50,12 +56,29 @@
 </template>
 
 <template name="playlist">
+	<section id="playlist">
+	</section>
 </template>
 
 <template name="player">
+	<section id="player">
+		<header id="player-hud">
+			{{> playerHUD }}
+		</header>
+		<canvas style="display:none"></canvas>
+	</section>
+</template>
+
+<template name="playerHUD">
+		<div class="hero-unit">
+			<h1>mtos</h1>
+			<p>{{greeting}}</p>
+		</div>
 </template>
 
 <template name="reader">
+	<section id="reader">
+	</section>
 </template>
 
 <template name="tagger">
