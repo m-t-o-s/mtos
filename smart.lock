@@ -5,21 +5,7 @@
     "commit": "f07715dc70de16a7aab84e56ab0c6cbd9c1f9dc6"
   },
   "dependencies": {
-    "basePackages": {
-      "bootstrap-less": {},
-      "accounts-anonymous": {}
-    },
-    "packages": {
-      "bootstrap-less": {
-        "git": "https://github.com/inhji/meteor-bootstrap-less",
-        "tag": "v0.0.2",
-        "commit": "a04086b7f86f1d3e8f58ab801b37d08c40688693"
-      },
-      "accounts-anonymous": {
-        "git": "https://github.com/tmeasday/meteor-accounts-anonymous.git",
-        "tag": "v0.0.1",
-        "commit": "f013415fd4b84df8cc96f5149f0fa6d35dfa8b12"
-      }
-    }
+    "basePackages": {},
+    "packages": {}
   }
 }
