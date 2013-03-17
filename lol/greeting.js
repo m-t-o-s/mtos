@@ -1,9 +1,20 @@
+Greetings = new Meteor.Collection("greetings");
+
 if (Meteor.isClient) {
 	Template.playerHUD.greeting = function () {
-		if (!Session.get('greeting')) {
-			return Template.playerHUD.newGreeting();
+		currentGreeting = 
+			Greetings.findOne(
+				{ "userId": Meteor.userId()}, 
+				{ sort: { timestamp: -1 } } 
+			);
+		if (!currentGreeting) {
+			if (!Session.get('greeting')) {
+				return Template.playerHUD.newGreeting();
+			} else {
+				return Session.get("greeting");
+			}
 		} else {
-			return Session.get("greeting");
+			return currentGreeting.greeting;
 		}
 	}
 	Template.playerHUD.newGreeting = function () {
@@ -69,8 +80,7 @@ if (Meteor.isClient) {
 			getRandomWord(possibilities.o) +
 			getRandomWord(possibilities.s)
 		;
-		Session.set("greeting", greeting);
-		return greeting;
+		Greetings.insert({ "userId": Meteor.userId(), "greeting": greeting, "timestamp": (new Date()).getTime() })
 	}
 	Template.playerHUD.events({
 		'click div' : function () {
