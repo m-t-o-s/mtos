@@ -1,0 +1,6 @@
+[submodule ".vendor/svg-edit"]
+	path = .vendor/svg-edit
+	url = https://github.com/diffalot/svg-edit.git
+[submodule ".vendor/webxray"]
+	path = .vendor/webxray
+	url = https://github.com/toolness/webxray.git
