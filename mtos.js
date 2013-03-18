@@ -1,3 +1,4 @@
+Meteor.absoluteUrl("http://mtos.co");
 // Media Timeline Operational Syndicator
 if (Meteor.isClient) {
 	Template.playerHUD.helpers({
