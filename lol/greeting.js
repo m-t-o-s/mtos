@@ -54,6 +54,7 @@ if (Meteor.isClient) {
 				'surface',
 				'slicer',
 				'saver',
+				'server',
 				'silo',
 				'submarine',
 				'subculture',
