@@ -29,7 +29,8 @@ if (Meteor.isClient) {
 				'morphing',
 				'multipass',
 				'multi-use',
-				'multiple'
+				'multiple',
+				'meta'
 			],
 			t: [
 				'timeline',
