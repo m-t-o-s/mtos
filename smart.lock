@@ -5,7 +5,18 @@
     "commit": "f07715dc70de16a7aab84e56ab0c6cbd9c1f9dc6"
   },
   "dependencies": {
-    "basePackages": {},
-    "packages": {}
+    "basePackages": {
+      "twitter-api": {
+        "git": "https://github.com/diffalot/meteor-twitter-api.git",
+        "branch": "master"
+      }
+    },
+    "packages": {
+      "twitter-api": {
+        "git": "https://github.com/diffalot/meteor-twitter-api.git",
+        "branch": "master",
+        "commit": "0cfea844a48d7ae07c7cccad4691ac5896f02780"
+      }
+    }
   }
 }

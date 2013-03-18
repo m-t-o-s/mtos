@@ -4,5 +4,8 @@
     "branch": "master"
   },
   "packages": {
+    "twitter-api": { 
+		"git": "https://github.com/diffalot/meteor-twitter-api.git"
+	}
   }
 }
