@@ -13,3 +13,5 @@ accounts-facebook
 accounts-ui
 bootstrap
 backbone
+twitter-api
+underscore
