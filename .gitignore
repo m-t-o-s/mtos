@@ -10,3 +10,4 @@ providers_secret.js
 codekit-config.json
 
 .vendor/node_modules
+public/*
