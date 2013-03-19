@@ -1,15 +1,21 @@
-Meteor.absoluteUrl("http://mtos.co");
+Meteor.absoluteUrl({rootUrl:"http://mtos.co"});
+
+Accounts.config({
+	sendVerificationEmail: true,
+	forbidClientAccountCreation: false
+});
+
 // Media Timeline Operational Syndicator
 if (Meteor.isClient) {
-	Template.playerHUD.helpers({
+
+	Accounts.ui.config({
+		passwordSignupFields: "USERNAME_AND_EMAIL"
 	});
-  Template.playerHUD.events({
-  });
 }
 
 if (Meteor.isServer) {
 	Meteor.startup(function () {
-		console.log("Server Running");
+		console.log("Server started on " + Date());
 		// code to run on server at startup
 	});
 }
