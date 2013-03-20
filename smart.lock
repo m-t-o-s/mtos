@@ -9,6 +9,10 @@
       "twitter-api": {
         "git": "https://github.com/diffalot/meteor-twitter-api.git",
         "branch": "master"
+      },
+      "meteor-accounts-extras": {
+        "git": "https://github.com/diffalot/meteor-accounts-extras.git",
+        "branch": "master"
       }
     },
     "packages": {
@@ -16,6 +20,11 @@
         "git": "https://github.com/diffalot/meteor-twitter-api.git",
         "branch": "master",
         "commit": "0cfea844a48d7ae07c7cccad4691ac5896f02780"
+      },
+      "meteor-accounts-extras": {
+        "git": "https://github.com/diffalot/meteor-accounts-extras.git",
+        "branch": "master",
+        "commit": "e67cbbed724baeac888560af2e4dddf9b6219ea9"
       }
     }
   }

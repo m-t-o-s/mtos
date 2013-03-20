@@ -6,6 +6,9 @@
   "packages": {
     "twitter-api": { 
 		"git": "https://github.com/diffalot/meteor-twitter-api.git"
+	},
+    "meteor-accounts-extras": { 
+		"git": "https://github.com/diffalot/meteor-accounts-extras.git"
 	}
   }
 }
