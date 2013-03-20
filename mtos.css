@@ -16,6 +16,7 @@ body {
 	background-color: rgba(255,255,255, .10);
 	border-radius:10px;
 	padding:15px;
+	margin-right:10px;
 }
 #login-dropdown-list {
 	background-color: rgba(0,0,0, .80);
@@ -23,11 +24,20 @@ body {
 
 }
 div.hero-unit {
+	border-radius:10px;
 	background-color: rgba(255,255,255, .10);
+	padding:10px;
+	margin:10px;
 }
 .navbar-fixed-bottom {
+	width:100%;
+	background-color: rgba(255,255,255, .10);
 	position:absolute;
 	bottom:0;
-	padding-left:10px;
-	padding-right:10px;
+}
+.navbar-fixed-bottom li {
+	display: inline-block;
+	float:left;
+	padding-right:20px;
+	padding-bottom:16px;
 }
