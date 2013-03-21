@@ -31,7 +31,9 @@ echo Done. You can now deploy your app.
 ;;
 deploy )
 echo Deploying...
+$METEOR_CMD add appcache 
 $METEOR_CMD bundle bundle.tgz 
+$METEOR_CMD remove appcache 
 scp bundle.tgz $SSH_HOST:/tmp/ 
 rm bundle.tgz > /dev/null 2>&1 &&
 ssh $SSH_HOST MONGO_URL=$MONGO_URL ROOT_URL=$ROOT_URL APP_DIR=$APP_DIR APP_NAME=$APP_NAME 'bash -s' <<'ENDSSH'
