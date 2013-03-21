@@ -1,6 +1,6 @@
 <head>
 	<title> everything you like </title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
@@ -12,35 +12,24 @@
 				{{> notifications }}
 			</header>
 			<content>
-				{{> playlist }}
+				<aside>
+					{{> playlist }}
+				</aside>
 				{{> player }}
 				{{> reader }}
 			</content>
-			<aside>
-				{{> tagger }}
-				{{> commenter }}
-			</aside>
 			<footer>
+				{{> playhead }}
 				{{> menu }}
+				{{> progress }}
+				<aside>
+					{{> tagger }}
+					{{> commenter }}
+					{{> feedImporter }}
+				</aside>
 			</footer>
 		</div>
 </body>
-
-<template name="menu">
-	<section id="menu">
-		<div class="navbar navbar-inverse navbar-fixed-bottom">
-			<div class="navbar-inner">
-				<a class="brand" href="http://mtos.co/">{{currentUser.profile.name}}</a>
-				<ul class="nav">
-					<li><a>test</a></li>
-					<li><a>test</a></li>
-					<li><a>test</a></li>
-					<li><a>test</a></li>
-				</ul>
-			</div>
-		</div>
-	</section>
-</template>
 
 <template name="notifications">
 	<section id="notifications">
@@ -81,8 +70,33 @@
 	</section>
 </template>
 
+<template name="playhead">
+</template>
+
+<template name="menu">
+	<section id="menu">
+		<div class="navbar navbar-inverse navbar-fixed-bottom">
+			<div class="navbar-inner">
+				<a class="brand" href="http://mtos.co/">{{currentUser.profile.name}}</a>
+				<ul class="nav">
+					<li><a>test</a></li>
+					<li><a>test</a></li>
+					<li><a>test</a></li>
+					<li><a>test</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</template>
+
+<template name="progress">
+</template>
+
 <template name="tagger">
 </template>
 
 <template name="commenter">
+</template>
+
+<template name="feedImporter">
 </template>
