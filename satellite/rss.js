@@ -37,23 +37,51 @@ var importOPML = {
 	getOPML: function() {
 		$.ajax({
 			url:"fever.opml", 
-			success: function(data) { importOPML.findFeeds(data) },
+			success: function(data) { console.dir(importOPML.findFeeds(data)) },
 			dataType: "xml" 
 		});
 	},
-	findFeeds: function(xml) {
+	findFeeds: function(xml, category) {
 		$( xml ).find( "outline" ).each( function(index, element) {
 			if ( element.hasChildNodes() ) {
-				console.log( "CATEGORY: " + element.attributes.getNamedItem("text").value )
-				importOPML.findFeeds( element );
+				importOPML.findFeeds( element, element.attributes.getNamedItem("text").value );
 			} else {
-				console.log('feed: ' + element.attributes.getNamedItem("text").value );
-				$( element ).each( function(index, element) {
-					if ( element.attributes.getNamedItem("type").value === "rss" ) {
-						console.log( element.attributes.getNamedItem("xmlUrl").value ); 
-					}
+				var feed = {};
+				if (!feed["tags"] && category) {
+					feed["tags"] = [ category ];
+				} else {
+					feed["tags"] = [];
+				}
+				if (feed["tags"] && category) {
+					feed["tags"].push(category);
+				}
+				$( element.attributes ).each( function(index, element) {
+						feed[element.nodeName] = element.nodeValue;
 				});
+				if (!window.feeds) {
+					window.feeds = [];
+					window.feeds.push(feed);
+				} else {
+					var feedMatch = undefined;
+					$.each(window.feeds, function(key, val){
+						//console.log("Checking: " + feed.xmlUrl, val.xmlUrl);
+						if (val.xmlUrl == feed.xmlUrl) {
+							console.log("FEED MATCH: " + feed.xmlUrl, val.xmlUrl);
+							feedMatch = true;
+							return false; // break;
+						} else {
+							console.log("searching", window.feeds.length );
+						}
+					});
+					if (!feedMatch) {
+						console.log( "saving", window.feeds.length + 1 );
+						window.feeds.push(feed); // continue; - just to satisfy jsLint
+					}
+				}
 			}
 		});
+		return window.feeds;
 	} 
+};
+if (Meteor.isClient) {
 }
