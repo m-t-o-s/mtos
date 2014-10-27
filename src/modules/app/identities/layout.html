@@ -1,0 +1,23 @@
+<span us-spinner spinner-key="generating-keys" class="key-spinner"></span>
+<div class="container identities">
+  <ul class="list-group">
+    <li class="identity list-group-item disabled" ng-class="{'hidden': !hasUnlockedIdentities}">
+      <h3>Unlocked Identites</h3>
+    </li>
+    <li class="identity list-group-item" ng-repeat="identity in unlockedIdentities">
+        <span class="userid">{{identity.users[0].userId.userid}}</span>
+        <button ng-click="lockIdentity($index)" class="btn btn-xs btn-success pull-right">lock</button>
+    </li>
+  </ul>
+  <ul class="list-group">
+    <li class="identity list-group-item disabled">
+      <h3>All Identities</h3>
+    </li>
+    <li class="identity list-group-item" ng-repeat="identity in identities">
+        <span class="userid">{{identity.userid}}</span>
+        <button ng-click="unlockIdentity(identity)" class="btn btn-xs btn-warning pull-right">unlock</button>
+    </li>
+  </ul>
+  <button class="btn btn-danger pull-right" ng-click="lockAllIdentities()">Lock All Identities</button>
+  <button class="btn btn-primary pull-right" ng-click="addIdentity()">Add Identity</button>
+</div>

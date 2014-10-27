@@ -1,0 +1,11 @@
+<div class="welcome">
+  <button id="add-identities" ui-sref="identities" type="button" class="btn btn-primary btn-lg">
+    Secure Your Identities
+  </button>
+  <button id="scan-barcode" ng-click="scanBarCode()" type="button" class="btn btn-success btn-lg">
+    Scan a Screen's Barcode
+  </button>
+  <h1 ng-class="{hidden: !showScanResults}">{{scannedText}}</h1>
+  <qrcode id="qr-code" ng-class="{hidden: !screenID}" data="{{domainURI}}/screen/{{screenID}}"></qrcode>
+  <p>{{scannedText}}</p>
+</div>

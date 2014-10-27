@@ -1,0 +1,75 @@
+'use strict';
+
+describe('Unit: IdentitiesController', function() {
+  // Load the module with MainController
+  beforeEach(module('mtos', 'mtos.common', 'mtos.common.services', 'mtos.identities'));
+
+  var ctrl, scope, rootScope;
+  // inject the $controller and $rootScope services
+  // in the beforeEach block
+  beforeEach(inject(function($controller, $rootScope) {
+    // Create a new scope that's a child of the $rootScope
+    scope = $rootScope.$new();
+    // Create the controller
+    ctrl = $controller('identitiesController', {
+      $scope: scope
+    });
+    rootScope = $rootScope;
+  }));
+
+  var identitiesService;
+  var $timeout;
+  var $q;
+  beforeEach(inject(function($injector, _$timeout_, _$q_) {
+    identitiesService = $injector.get('identitiesService');
+    $timeout = _$timeout_;
+    $q = _$q_;
+  }));
+
+  var originalTimeout;
+  beforeEach(function() {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+  });
+  afterEach(function(done) {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    localforage.clear(done);
+  });
+
+  it('should create a new identity stored in localforage', function(done) {
+    var storedIDs;
+
+    identitiesService.generateKeys('user', 'passphrase')
+    .then(function(keys){
+      scope.identities.push(keys);
+      //scope.$apply();
+    })
+    .then(function(){
+      expect(scope.identities[0]).toBeDefined();
+      expect(scope.identities[0].publicKeyArmored).toBeDefined();
+      expect(scope.identities[0].privateKeyArmored).toBeDefined();
+    })
+    /*
+    .then(function(){
+      var deferred = $q.defer();
+      localforage.getItem('identities')
+      .then(function(identities){
+        console.log(identities)
+        deferred.resolve(identities);
+      });
+      return deferred.promise;
+    })
+    .then(function(identities){
+      console.log(identities)
+      expect(identities[0]).toBeDefined();
+      expect(identities[0].publicKeyArmored).toBeDefined();
+      expect(identities[0].privateKeyArmored).toBeDefined();
+      console.log(identities[0])
+    })
+    */
+    .finally(done);
+    setInterval(function(){
+        rootScope.$digest();
+    }, 250);
+  });
+});
