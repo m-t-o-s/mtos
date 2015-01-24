@@ -1,5 +1,7 @@
 # mtos
 
+![WASTE IMAGE](https://git.diff.mx/mtos/mtos/raw/master/aiga_litter_disposal_bg.svg)
+
 **mtos** is a secured feed protocol for publishing and aggregating media for tagging, remixing, and reblogging
 
 # protections against surveillance
@@ -44,6 +46,13 @@ only needs to monitor the progress through the steps of out of band key
 exchange, never knowing any of the encryption keys used during the out of band
 key transfer.
 
+# system structure
+
+* **mt-server** publicly accessibly distributed hash table that facilitates connections between **mt-caches**
+* **mt-cache** stores **mt-items** for local viewing by **mt-clients** 
+
+
+
 Roadmap
 =======
 
@@ -54,6 +63,10 @@ Since moving off of Meteor and on to AngularJS, the primary work done has been
 to provide PGP identity management and out of band key exchange  because these
 are unsolved problems in web application design that must be addresed before
 building an anonymized p2p network.
+
+Eventually, the user interface should be written using web components for key
+management and **mt-items** should be displayable with their on web components
+stored and transmitted as **mt-items**.
 
 
 Basic Content Types
@@ -107,4 +120,4 @@ Wanted Site Parsers
 * popcorn.js
 * kaltura
 * archive.org
-* blip.tv
+* blip.tv:
