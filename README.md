@@ -1,4 +1,4 @@
-![mtos logo](https://git.diff.mx/uploads/group/avatar/6/aiga_litter_disposal_bg.png)
+[![mtos logo](https://git.diff.mx/uploads/group/avatar/6/aiga_litter_disposal_bg.png)](https://git.diff.mx/groups/mtos)
 
 # mtos
 
