@@ -4,6 +4,17 @@
 
 **mtos** is a secured feed protocol for publishing and aggregating media for tagging, remixing, and reblogging
 
+# system structure
+
+* **mt-server** publicly accessibly distributed hash table that facilitates
+  connections between **mt-caches**
+* **mt-cache** stores **mt-items** for local viewing by **mt-clients** may be
+  run on a server or a local client
+* **mt-client** contains a user's keychains for singning, verification,
+  encryption, and decryption of **mt-items**
+* **mt-items** are collections of text and binary data that are transmissible
+  through from one **mt-cache** to another through a single reference
+
 # protections against surveillance
 
 * **mt-items** should all be signed to verify authorship and valid
@@ -45,17 +56,6 @@ front of two screens or two users are in front of thier own screens, the server
 only needs to monitor the progress through the steps of out of band key
 exchange, never knowing any of the encryption keys used during the out of band
 key transfer.
-
-# system structure
-
-* **mt-server** publicly accessibly distributed hash table that facilitates
-  connections between **mt-caches**
-* **mt-cache** stores **mt-items** for local viewing by **mt-clients** may be
-  run on a server or a local client
-* **mt-client** contains a user's keychains for singning, verification,
-  encryption, and decryption of **mt-items**
-* **mt-items** are collections of text and binary data that are transmissible
-  through from one **mt-cache** to another through a single reference
 
 Roadmap
 =======
