@@ -48,10 +48,14 @@ key transfer.
 
 # system structure
 
-* **mt-server** publicly accessibly distributed hash table that facilitates connections between **mt-caches**
-* **mt-cache** stores **mt-items** for local viewing by **mt-clients** 
-
-
+* **mt-server** publicly accessibly distributed hash table that facilitates
+  connections between **mt-caches**
+* **mt-cache** stores **mt-items** for local viewing by **mt-clients** may be
+  run on a server or a local client
+* **mt-client** contains a user's keychains for decrypting and viewing
+  **mt-items**
+* **mt-items** are collections of text and binary data that are transmissible
+  through from one **mt-cache** to another through a single reference
 
 Roadmap
 =======
