@@ -2,7 +2,8 @@
 
 # mtos
 
-**mtos** is a secured feed protocol for publishing and aggregating media for tagging, remixing, and reblogging
+**mtos** is a secured feed protocol for publishing and aggregating media for
+tagging, remixing, and reblogging
 
 # system structure
 
