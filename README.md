@@ -52,8 +52,8 @@ key transfer.
   connections between **mt-caches**
 * **mt-cache** stores **mt-items** for local viewing by **mt-clients** may be
   run on a server or a local client
-* **mt-client** contains a user's keychains for decrypting and viewing
-  **mt-items**
+* **mt-client** contains a user's keychains for singning, verification,
+  encryption, and decryption of **mt-items**
 * **mt-items** are collections of text and binary data that are transmissible
   through from one **mt-cache** to another through a single reference
 
