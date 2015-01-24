@@ -1,6 +1,6 @@
-# mtos
+![mtos logo](https://git.diff.mx/uploads/group/avatar/6/aiga_litter_disposal_bg.png)
 
-![WASTE IMAGE](https://git.diff.mx/uploads/group/avatar/6/aiga_litter_disposal_bg.png)
+# mtos
 
 **mtos** is a secured feed protocol for publishing and aggregating media for tagging, remixing, and reblogging
 
