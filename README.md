@@ -1,18 +1,22 @@
-mtos
-====
+# mtos
 
-**mtos** is a news viewer that aggregates things you like for tagging, remixing, and reblogging
+**mtos** is a secured feed protocol that securely publishes and aggregates for tagging, remixing, and reblogging
 
-Roadmap
-=======
+# protections against surveillance
 
-It's been a couple of years since I last worked on this project, the previous
-work (except for this README) can be found in the `archive` branch.
+* **mt-items** should all be signed to verify authorship and valid
+  transmission, even in the case of anonymous authorship (anonymous authorship
+merely means signed with a new key not tied to any previously created key)
+* **mt-items** may be encrypted so that no **mt-server** can decrypt the
+  contents of the **mt-items** stored in it's **mt-cache**
+* p2p transmission of **mt-items** is end to end encrypted so that no third
+  party can determine who is accessing an **mt-item**
+* p2p transmission of **mt-items** is onion routed so no **mt-server** may know
+  who is accessing or storing an **mt-item**
 
-Since moving off of Meteor and on to AngularJS, the primary work done has been
-to provide PGP identity management and out of band key exchange  because these
-are unsolved problems in web application design that must be addresed before
-building an anonymized p2p network.
+(language modeled after [rfc2119](http://tools.ietf.org/html/rfc2119))
+
+# key creation and transmission
 
 Identity management is done using PGP keys, at the moment this is done in
 browser using OpenPGP.js, but it should eventually be handled by Cordova
@@ -39,6 +43,18 @@ front of two screens or two users are in front of thier own screens, the server
 only needs to monitor the progress through the steps of out of band key
 exchange, never knowing any of the encryption keys used during the out of band
 key transfer.
+
+Roadmap
+=======
+
+It's been a couple of years since I last worked on this project, the previous
+work (except for this README) can be found in the `archive` branch.
+
+Since moving off of Meteor and on to AngularJS, the primary work done has been
+to provide PGP identity management and out of band key exchange  because these
+are unsolved problems in web application design that must be addresed before
+building an anonymized p2p network.
+
 
 Basic Content Types
 ===================
