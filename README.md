@@ -1,6 +1,6 @@
 # mtos
 
-**mtos** is a secured feed protocol that securely publishes and aggregates for tagging, remixing, and reblogging
+**mtos** is a secured feed protocol for publishing and aggregating media for tagging, remixing, and reblogging
 
 # protections against surveillance
 
@@ -35,7 +35,7 @@ properly anonymized and replicated in a manner that prevents social graph
 construction from p2p data.
 
 Out of band key transfer is achieved through nfc, bluetooth, qr-codes, and
-manually entering hashes.  the feteration of **mtos** servers knows very little
+manually entering hashes.  the federation of **mt-servers** knows very little
 about the screens that operate as the nodes of the p2p network.  The only data
 that the server transmits is to notify screens that key transfer requests have
 been initialized.  because key transfer is user initiated while a user is in
