@@ -14,7 +14,7 @@ tagging, remixing, and reblogging
 * **mt-client** contains a user's keychains for singning, verification,
   encryption, and decryption of **mt-items**
 * **mt-items** are collections of text and binary data that are transmissible
-  through from one **mt-cache** to another through a single reference
+  from one **mt-cache** to another through a single reference
 
 # protections against surveillance
 
