@@ -1,11 +1,16 @@
 {
-  "name": "mtos-server",
-  "version": "1.0.0",
+  "name": "mtos",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "buffer": "^3.2.2",
+    "q": "^1.4.0",
+    "webtorrent": "^0.39.0"
+  }
 }
