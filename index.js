@@ -1,20 +1,17 @@
 'use strict'
 
-var WebTorrent = require('webtorrent')
 var Buffer = require('buffer').Buffer
 var q = require('q')
 
-var client = new WebTorrent()
-
 var mtos = {}
 
-mtos.client = client
+mtos.torrentClient = require('./lib/webtorrent')
 
 mtos.createTextFile = function (text) {
   var deferred = q.defer()
   var buffer = new Buffer(Buffer.byteLength(text, 'utf-8'))
   buffer.write(text, 'utf-8')
-  client.seed(buffer, { name: 'data' }, function (torrent) {
+  mtos.torrentClient.seed(buffer, { name: 'data' }, function (torrent) {
     deferred.resolve(torrent)
   })
   return deferred.promise
