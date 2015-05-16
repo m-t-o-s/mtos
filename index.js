@@ -6,6 +6,7 @@ var q = require('q')
 var mtos = {}
 
 mtos.torrentClient = require('./lib/webtorrent')
+mtos.crypter = require('./lib/crypter')
 
 mtos.createTextFile = function (text) {
   var deferred = q.defer()
@@ -27,5 +28,7 @@ mtos.readTextFile = function (torrent) {
   })
   return deferred.promise
 }
+
+mtos.newServerKey = mtos.crypter.generateKeyPair
 
 module.exports = mtos
