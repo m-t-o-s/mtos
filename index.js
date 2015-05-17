@@ -31,6 +31,8 @@ mtos.readTextFile = function (torrent) {
 
 mtos.newServerKey = mtos.crypter.generateKeyPair
 
+mtos.newUserKey = mtos.crypter.generateKeyPair
+
 mtos.loadKeyFromStrings = mtos.crypter.loadKeyFromStrings
 
 module.exports = mtos
