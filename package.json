@@ -9,7 +9,6 @@
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL",
   "dependencies": {
-    "buffer": "^3.2.2",
     "jszip": "^2.5.0",
     "node-forge": "^0.6.26",
     "q": "^1.4.0",
