@@ -22,7 +22,7 @@ mtos.readTextFile = function (torrent) {
 mtos.createZip = function (data) {
   var deferred = q.defer()
   var zip = new JSZip()
-  zip.file('mt-data.json', data)
+  zip.file('mt-data', data)
   var zipfile = zip.generate({type: 'nodebuffer'})
   deferred.resolve(zipfile)
   return deferred.promise
@@ -32,8 +32,8 @@ mtos.readZip = function (data) {
   console.log('reading zip content', data)
   var deferred = q.defer()
   var zip = new JSZip(data)
-  var content = zip.file('mt-data.json').asText()
-  deferred.resolve(JSON.parse(content).message)
+  var content = zip.file('mt-data').asText()
+  deferred.resolve(content)
   return deferred.promise
 }
 
@@ -41,11 +41,11 @@ mtos.signContent = mtos.crypter.signContent
 mtos.encryptContent = mtos.crypter.encryptContent
 
 mtos.createContent = function (content, options) {
-  console.log('creating', content, options)
-  var contentString = JSON.stringify(content)
+  console.log('creating content', content, options)
+  var contentString = content
   return mtos.signContent(contentString, options.privateKey)
   .then(function (signedContent) {
-    var signedContentString = JSON.stringify(signedContent)
+    var signedContentString = signedContent
     if (options.encrypt) {
       return mtos.encryptContent(signedContentString, options.publicKey)
     } else {
@@ -55,10 +55,7 @@ mtos.createContent = function (content, options) {
     }
   })
   .then(function (finalContent) {
-    var content = JSON.stringify({
-      message: finalContent,
-      author: options.author
-    })
+    var content = finalContent
     console.log('about to zip', content)
     return mtos.createZip(content)
   })
