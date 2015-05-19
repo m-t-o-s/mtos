@@ -84,6 +84,9 @@ mtos.readContent = function (torrent, options) {
     console.log('read from zip', mtData)
     return mtos.decryptContent(mtData, options.privateKey)
   })
+  .then(function (content) {
+    return mtos.verifyContent(content, options.publicKey)
+  })
 }
 
 mtos.torrentToBuffer = function (torrent) {
