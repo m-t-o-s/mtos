@@ -5,6 +5,7 @@ var JSZip = require('jszip')
 
 var mtos = {}
 
+mtos.swarm = require('./lib/swarm')
 mtos.torrentClient = require('./lib/webtorrent')
 mtos.crypter = require('./lib/crypter')
 
@@ -112,5 +113,7 @@ mtos.newServerKey = mtos.crypter.generateKeyPair
 mtos.newUserKey = mtos.crypter.generateKeyPair
 
 mtos.loadKeyFromStrings = mtos.crypter.loadKeyFromStrings
+
+mtos.publicKeyFromString = mtos.crypter.publicKeyFromString
 
 module.exports = mtos
