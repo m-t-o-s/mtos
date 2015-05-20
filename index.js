@@ -2,6 +2,7 @@
 
 var q = require('q')
 var JSZip = require('jszip')
+var _ = require('lodash')
 
 var mtos = {}
 
@@ -62,7 +63,14 @@ mtos.createContent = function (content, options) {
   })
   .then(function (zipfile) {
     var deferred = q.defer()
-    mtos.torrentClient.seed(zipfile, { name: 'mt-data.zip' }, function (torrent) {
+    var torrentOptions = {name: 'mt-data.zip'}
+    if (options.torrentOptions) {
+      console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
+      torrentOptions.announceList = options.torrentOptions.announceList
+      console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
+
+    }
+    mtos.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
       deferred.resolve(torrent)
     })
     return deferred.promise
