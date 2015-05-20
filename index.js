@@ -66,8 +66,9 @@ mtos.createContent = function (content, options) {
     var torrentOptions = {name: 'mt-data.zip'}
     if (options.torrentOptions) {
       console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
-      torrentOptions = _.merge(torrentOptions, torrentOptions, options.torrentOptions)
-      console.dir('TORRENT OPTIONS', torrentOptions)
+      torrentOptions.announceList = options.torrentOptions.announceList
+      console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
+
     }
     mtos.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
       deferred.resolve(torrent)
