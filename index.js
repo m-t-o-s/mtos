@@ -2,7 +2,6 @@
 
 var q = require('q')
 var JSZip = require('jszip')
-var _ = require('lodash')
 
 var mtos = {}
 
