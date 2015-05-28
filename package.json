@@ -9,9 +9,14 @@
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL",
   "dependencies": {
+    "crypto": "0.0.3",
+    "eccrypto": "^0.9.8",
+    "events": "^1.0.2",
     "jszip": "^2.5.0",
     "node-forge": "^0.6.26",
     "q": "^1.4.0",
+    "signalhub": "^4.0.2",
+    "webrtc-swarm": "^1.2.0",
     "webtorrent": "^0.39.0"
   }
 }

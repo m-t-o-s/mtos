@@ -1,10 +1,12 @@
 'use strict'
 
+var event = require('events')
 var q = require('q')
 var JSZip = require('jszip')
 
-var mtos = {}
+var mtos = new event.EventEmitter()
 
+mtos.connect = require('./lib/swarm')
 mtos.torrentClient = require('./lib/webtorrent')
 mtos.crypter = require('./lib/crypter')
 
@@ -61,7 +63,14 @@ mtos.createContent = function (content, options) {
   })
   .then(function (zipfile) {
     var deferred = q.defer()
-    mtos.torrentClient.seed(zipfile, { name: 'mt-data.zip' }, function (torrent) {
+    var torrentOptions = {name: 'mt-data.zip'}
+    if (options.torrentOptions) {
+      console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
+      torrentOptions.announceList = options.torrentOptions.announceList
+      console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
+
+    }
+    mtos.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
       deferred.resolve(torrent)
     })
     return deferred.promise
@@ -112,5 +121,7 @@ mtos.newServerKey = mtos.crypter.generateKeyPair
 mtos.newUserKey = mtos.crypter.generateKeyPair
 
 mtos.loadKeyFromStrings = mtos.crypter.loadKeyFromStrings
+
+mtos.publicKeyFromString = mtos.crypter.publicKeyFromString
 
 module.exports = mtos
