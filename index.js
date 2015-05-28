@@ -1,11 +1,12 @@
 'use strict'
 
+var event = require('events')
 var q = require('q')
 var JSZip = require('jszip')
 
-var mtos = {}
+var mtos = new event.EventEmitter()
 
-mtos.swarm = require('./lib/swarm')
+mtos.connect = require('./lib/swarm')
 mtos.torrentClient = require('./lib/webtorrent')
 mtos.crypter = require('./lib/crypter')
 
