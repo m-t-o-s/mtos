@@ -21,6 +21,7 @@
     "webtorrent": "^0.39.0"
   },
   "devDependencies": {
+    "blue-tape": "^0.1.9",
     "standard": "^3.11.1",
     "tape": "^4.0.0"
   }
