@@ -8,6 +8,7 @@ var serverKeyOne = mtos.newServerKey()
 var serverKeyTwo = mtos.newServerKey()
 
 function ensureKey (key, t) {
+  var deferred = q.defer()
   var fingerpringStringLength = key.publicKeyFingerprint.length
   t.ok(key.publicKey, 'has public key')
   t.ok(key.publicKey.encrypt, 'can use public key for encryption')
@@ -18,19 +19,24 @@ function ensureKey (key, t) {
   t.ok(key.publicKeyString, 'has public key string')
   t.ok(key.privateKeyString, 'has private key string')
   t.equal(59, fingerpringStringLength, 'has a public key fingerprint 59 characters long')
+  deferred.resolve(key)
+  return deferred.promise
 }
 
 tape('generate a server key', function (t) {
   return serverKeyOne
   .then(function (key) {
-    ensureKey(key, t)
+    return ensureKey(key, t)
+  })
+  .then(function (key) {
+    console.log('%s wow mom', key.publicKeyFingerprint)
   })
 })
 
 tape('generate another server key', function (t) {
   return serverKeyTwo
   .then(function (key) {
-    ensureKey(key, t)
+    return ensureKey(key, t)
   })
 })
 
@@ -38,5 +44,24 @@ tape('server keys are not equal', function (t) {
   return q.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
     t.notEqual(keys[0].publicKeyFingerprint, keys[1].publicKeyFingerprint, 'the keys have different fingerprints')
+  })
+})
+
+tape('can encrypt from a public and decrypt from a private key', function (t) {
+  var keypairs
+  return q.all([serverKeyOne, serverKeyTwo])
+  .then(function (keys) {
+    keypairs = keys
+    var content = {
+      secretMessage: 'there are secrets here'
+    }
+    return mtos.encryptContent(JSON.stringify(content), keypairs[1].publicKey)
+  })
+  .then(function (encryptedMessage) {
+    return mtos.decryptContent(encryptedMessage, keypairs[1].privateKey)
+  })
+  .then(function (message) {
+    var secretMessage = JSON.parse(message).secretMessage
+    t.equal(secretMessage, 'there are secrets here', 'decrypted secret message')
   })
 })
