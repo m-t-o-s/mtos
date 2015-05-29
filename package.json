@@ -4,7 +4,8 @@
   "description": "an mtos interaction module that may be used in the browser or on the server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard && tape test/*",
+    "dev": "nodemon --exec 'tape test/*'"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL",
@@ -18,5 +19,9 @@
     "signalhub": "^4.0.2",
     "webrtc-swarm": "^1.2.0",
     "webtorrent": "^0.39.0"
+  },
+  "devDependencies": {
+    "standard": "^3.11.1",
+    "tape": "^4.0.0"
   }
 }
