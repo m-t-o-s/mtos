@@ -10,7 +10,6 @@ tape('generate server key', function (t) {
     t.ok(key.publicKey.encrypt, 'has public key for encryption')
     t.ok(key.publicKey.verify, 'has public key for verification')
     t.ok(key.privateKey, 'has private key')
-    t.ok(key.privateKey, 'has private key')
     t.ok(key.privateKey.decrypt, 'has private key for decryption')
     t.ok(key.privateKey.sign, 'has private key for signing')
     t.ok(key.publicKeyString, 'has public key string')
