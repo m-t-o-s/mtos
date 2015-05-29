@@ -4,6 +4,7 @@
   "description": "an mtos interaction module that may be used in the browser or on the server",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node bin/generate-testing-keys.js",
     "test": "standard && tape test/*",
     "dev": "nodemon --exec 'tape test/*'"
   },
