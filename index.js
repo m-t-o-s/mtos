@@ -1,16 +1,21 @@
 'use strict'
 
-var event = require('events')
+var events = require('events')
 var q = require('q')
 var JSZip = require('jszip')
 
-var mtos = new event.EventEmitter()
+var MTOS = function (options) {
+  if (!(this instanceof MTOS)) return new MTOS(options)
+  if (!options) options = {}
 
-mtos.connect = require('./lib/swarm')
-mtos.torrentClient = require('./lib/webtorrent')
-mtos.crypter = require('./lib/crypter')
+  events.EventEmitter.call(this)
+}
 
-mtos.readTextFile = function (torrent) {
+MTOS.connect = require('./lib/swarm')
+MTOS.torrentClient = require('./lib/webtorrent')
+MTOS.crypter = require('./lib/crypter')
+
+MTOS.readTextFile = function (torrent) {
   var deferred = q.defer()
   torrent.files[0].getBuffer(function (error, buffer) {
     if (error) {
@@ -21,7 +26,7 @@ mtos.readTextFile = function (torrent) {
   return deferred.promise
 }
 
-mtos.createZip = function (data) {
+MTOS.createZip = function (data) {
   var deferred = q.defer()
   var zip = new JSZip()
   zip.file('mt-data', data)
@@ -30,7 +35,7 @@ mtos.createZip = function (data) {
   return deferred.promise
 }
 
-mtos.readZip = function (data) {
+MTOS.readZip = function (data) {
   console.log('reading zip content', data)
   var deferred = q.defer()
   var zip = new JSZip(data)
@@ -39,17 +44,17 @@ mtos.readZip = function (data) {
   return deferred.promise
 }
 
-mtos.signContent = mtos.crypter.signContent
-mtos.encryptContent = mtos.crypter.encryptContent
+MTOS.signContent = MTOS.crypter.signContent
+MTOS.encryptContent = MTOS.crypter.encryptContent
 
-mtos.createContent = function (content, options) {
+MTOS.createContent = function (content, options) {
   console.log('creating content', content, options)
   var contentString = content
-  return mtos.signContent(contentString, options.privateKey)
+  return MTOS.signContent(contentString, options.privateKey)
   .then(function (signedContent) {
     var signedContentString = signedContent
     if (options.encrypt) {
-      return mtos.encryptContent(signedContentString, options.publicKey)
+      return MTOS.encryptContent(signedContentString, options.publicKey)
     } else {
       var deferred = q.defer()
       deferred.resolve(signedContentString)
@@ -59,7 +64,7 @@ mtos.createContent = function (content, options) {
   .then(function (finalContent) {
     var content = finalContent
     console.log('about to zip', content)
-    return mtos.createZip(content)
+    return MTOS.createZip(content)
   })
   .then(function (zipfile) {
     var deferred = q.defer()
@@ -70,7 +75,7 @@ mtos.createContent = function (content, options) {
       console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
 
     }
-    mtos.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
+    MTOS.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
       deferred.resolve(torrent)
     })
     return deferred.promise
@@ -81,24 +86,24 @@ mtos.createContent = function (content, options) {
   })
 }
 
-mtos.decryptContent = mtos.crypter.decryptContent
-mtos.verifyContent = mtos.crypter.verifyContent
+MTOS.decryptContent = MTOS.crypter.decryptContent
+MTOS.verifyContent = MTOS.crypter.verifyContent
 
-mtos.readContent = function (torrent, options) {
-  return mtos.torrentToBuffer(torrent)
+MTOS.readContent = function (torrent, options) {
+  return MTOS.torrentToBuffer(torrent)
   .then(function (mtZipBuffer) {
-    return mtos.readZip(mtZipBuffer)
+    return MTOS.readZip(mtZipBuffer)
   })
   .then(function (mtData) {
     console.log('read from zip', mtData)
-    return mtos.decryptContent(mtData, options.privateKey)
+    return MTOS.decryptContent(mtData, options.privateKey)
   })
   .then(function (content) {
-    return mtos.verifyContent(content, options.publicKey)
+    return MTOS.verifyContent(content, options.publicKey)
   })
 }
 
-mtos.torrentToBuffer = function (torrent) {
+MTOS.torrentToBuffer = function (torrent) {
   var deferred = q.defer()
   console.log('beginning torrent read cycle', torrent)
   var mtZip
@@ -116,12 +121,12 @@ mtos.torrentToBuffer = function (torrent) {
   return deferred.promise
 }
 
-mtos.newServerKey = mtos.crypter.generateKeyPair
+MTOS.newServerKey = MTOS.crypter.generateKeyPair
 
-mtos.newUserKey = mtos.crypter.generateKeyPair
+MTOS.newUserKey = MTOS.crypter.generateKeyPair
 
-mtos.loadKeyFromStrings = mtos.crypter.loadKeyFromStrings
+MTOS.loadKeyFromStrings = MTOS.crypter.loadKeyFromStrings
 
-mtos.publicKeyFromString = mtos.crypter.publicKeyFromString
+MTOS.publicKeyFromString = MTOS.crypter.publicKeyFromString
 
-module.exports = mtos
+module.exports = MTOS
