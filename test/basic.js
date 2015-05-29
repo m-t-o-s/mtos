@@ -37,6 +37,6 @@ tape('generate another server key', function (t) {
 tape('keys are not equal', function (t) {
   return q.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
-    t.notEqual(keys[0].publicKeyFingerprint, keys[1].publicKeyFingerprint)
+    t.notEqual(keys[0].publicKeyFingerprint, keys[1].publicKeyFingerprint, 'the keys have different fingerprints')
   })
 })
