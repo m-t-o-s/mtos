@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard && node bin/generate-testing-keys.js && tape test/*",
-    "dev": "node bin/generate-testing-keys.js && nodemon --exec 'tape test/*'"
+    "dev": "node bin/generate-testing-keys.js && nodemon --exec 'tape test/* | tap-spec'"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "blue-tape": "^0.1.9",
     "standard": "^3.11.1",
+    "tap-spec": "^4.0.0",
     "tape": "^4.0.0"
   }
 }
