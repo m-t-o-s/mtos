@@ -35,6 +35,17 @@ tape('keys loaded from strings are valid', function (t) {
   })
 })
 
+tape('can load a public key from a string', function (t) {
+  return mtos.publicKeyFromString(testingKeys.serverKeyOne.publicKeyString)
+  .then(function (key) {
+    console.log(key)
+    t.ok(key, 'has public key')
+    t.ok(key.encrypt, 'can use public key for encryption')
+    t.ok(key.verify, 'can use public key for verification')
+    t.end()
+  })
+})
+
 tape('server keys are not equal', function (t) {
   return Promise.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
@@ -43,7 +54,26 @@ tape('server keys are not equal', function (t) {
   })
 })
 
-tape('can encrypt from a public and decrypt from a private key', function (t) {
+tape('can sign with a private key and verify from a public key', function (t) {
+  var keypairs
+  var content = {
+    secretMessage: 'this content is verifiable'
+  }
+  return Promise.all([serverKeyOne, serverKeyTwo])
+  .then(function (keys) {
+    keypairs = keys
+    return mtos.signContent(content, keypairs[1].privateKey)
+  })
+  .then(function (encryptedMessage) {
+    return mtos.verifyContent(encryptedMessage, keypairs[1].publicKey)
+  })
+  .then(function (verifiedContent) {
+    t.deepEqual(verifiedContent, content, 'verified verifiable message')
+    t.end()
+  })
+})
+
+tape('can encrypt from a public key and decrypt from a private key', function (t) {
   var keypairs
   var content = {
     secretMessage: 'there are secrets here'
@@ -51,10 +81,10 @@ tape('can encrypt from a public and decrypt from a private key', function (t) {
   return Promise.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
     keypairs = keys
-    return mtos.encryptContent(content, keypairs[1].publicKey)
+    return mtos.encryptContent(content, keypairs[0].publicKey)
   })
   .then(function (encryptedMessage) {
-    return mtos.decryptContent(encryptedMessage, keypairs[1].privateKey)
+    return mtos.decryptContent(encryptedMessage, keypairs[0].privateKey)
   })
   .then(function (decryptedContent) {
     t.deepEqual(decryptedContent, content, 'decrypted secret message')
