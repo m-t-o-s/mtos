@@ -4,8 +4,10 @@ var mtos = require('../')
 var tape = require('blue-tape')
 var q = require('q')
 
-var serverKeyOne = mtos.newServerKey()
-var serverKeyTwo = mtos.newServerKey()
+var testingKeys = require('./testing-keys.json')
+
+var serverKeyOne = mtos.loadKeyFromStrings(testingKeys.serverKeyOne)
+var serverKeyTwo = mtos.loadKeyFromStrings(testingKeys.serverKeyTwo)
 
 function ensureKey (key, t) {
   var deferred = q.defer()
@@ -23,20 +25,12 @@ function ensureKey (key, t) {
   return deferred.promise
 }
 
-tape('generate a server key', function (t) {
-  return serverKeyOne
-  .then(function (key) {
-    return ensureKey(key, t)
-  })
-  .then(function (key) {
-    console.log('%s wow mom', key.publicKeyFingerprint)
-  })
-})
-
-tape('generate another server key', function (t) {
-  return serverKeyTwo
-  .then(function (key) {
-    return ensureKey(key, t)
+tape('keys loaded from strings are valid', function (t) {
+  return q.all([serverKeyOne, serverKeyTwo])
+  .then(function (keys) {
+    for (var i = 0; i < keys.length; i++) {
+      ensureKey(keys[i], t)
+    }
   })
 })
 

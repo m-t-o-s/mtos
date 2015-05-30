@@ -121,7 +121,7 @@ MTOS.torrentToBuffer = function (torrent) {
   return deferred.promise
 }
 
-MTOS.newServerKey = MTOS.crypter.generateKeyPair
+MTOS.generateServerKey = MTOS.crypter.generateKeyPair
 
 MTOS.newUserKey = MTOS.crypter.generateKeyPair
 

@@ -4,9 +4,8 @@
   "description": "an mtos interaction module that may be used in the browser or on the server",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node bin/generate-testing-keys.js",
-    "test": "standard && tape test/*",
-    "dev": "nodemon --exec 'tape test/*'"
+    "test": "standard && node bin/generate-testing-keys.js && tape test/*",
+    "dev": "node bin/generate-testing-keys.js && nodemon --exec 'tape test/*'"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL",
