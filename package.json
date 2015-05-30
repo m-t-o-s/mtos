@@ -4,7 +4,8 @@
   "description": "an mtos interaction module that may be used in the browser or on the server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard && node bin/generate-testing-keys.js && tape test/*",
+    "dev": "nodemon --exec 'tape test/* | tap-spec'"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL",
@@ -18,5 +19,10 @@
     "signalhub": "^4.0.2",
     "webrtc-swarm": "^1.2.0",
     "webtorrent": "^0.39.0"
+  },
+  "devDependencies": {
+    "standard": "^3.11.1",
+    "tap-spec": "^4.0.0",
+    "tape": "^4.0.0"
   }
 }
