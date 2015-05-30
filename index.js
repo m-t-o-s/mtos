@@ -1,7 +1,6 @@
 'use strict'
 
 var events = require('events')
-var q = require('q')
 var JSZip = require('jszip')
 
 var MTOS = function (options) {
@@ -16,32 +15,35 @@ MTOS.torrentClient = require('./lib/webtorrent')
 MTOS.crypter = require('./lib/crypter')
 
 MTOS.readTextFile = function (torrent) {
-  var deferred = q.defer()
-  torrent.files[0].getBuffer(function (error, buffer) {
-    if (error) {
-      throw new Error(error)
-    }
-    deferred.resolve(buffer.toString('utf-8'))
+  var promise = new Promise(function (resolve, reject) {
+    torrent.files[0].getBuffer(function (error, buffer) {
+      if (error) {
+        throw new Error(error)
+      }
+      resolve(buffer.toString('utf-8'))
+    })
   })
-  return deferred.promise
+  return promise
 }
 
 MTOS.createZip = function (data) {
-  var deferred = q.defer()
-  var zip = new JSZip()
-  zip.file('mt-data', data)
-  var zipfile = zip.generate({type: 'nodebuffer'})
-  deferred.resolve(zipfile)
-  return deferred.promise
+  var promise = new Promise(function (resolve, reject) {
+    var zip = new JSZip()
+    zip.file('mt-data', data)
+    var zipfile = zip.generate({type: 'nodebuffer'})
+    resolve(zipfile)
+  })
+  return promise
 }
 
 MTOS.readZip = function (data) {
-  console.log('reading zip content', data)
-  var deferred = q.defer()
-  var zip = new JSZip(data)
-  var content = zip.file('mt-data').asText()
-  deferred.resolve(content)
-  return deferred.promise
+  var promise = new Promise(function (resolve, reject) {
+    console.log('reading zip content', data)
+    var zip = new JSZip(data)
+    var content = zip.file('mt-data').asText()
+    resolve(content)
+  })
+  return promise
 }
 
 MTOS.signContent = MTOS.crypter.signContent
@@ -56,9 +58,10 @@ MTOS.createContent = function (content, options) {
     if (options.encrypt) {
       return MTOS.encryptContent(signedContentString, options.publicKey)
     } else {
-      var deferred = q.defer()
-      deferred.resolve(signedContentString)
-      return deferred.promise
+      var promise = new Promise(function (resolve, reject) {
+        resolve(signedContentString)
+      })
+      return promise
     }
   })
   .then(function (finalContent) {
@@ -67,18 +70,19 @@ MTOS.createContent = function (content, options) {
     return MTOS.createZip(content)
   })
   .then(function (zipfile) {
-    var deferred = q.defer()
-    var torrentOptions = {name: 'mt-data.zip'}
-    if (options.torrentOptions) {
-      console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
-      torrentOptions.announceList = options.torrentOptions.announceList
-      console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
+    var promise = new Promise(function (resolve, reject) {
+      var torrentOptions = {name: 'mt-data.zip'}
+      if (options.torrentOptions) {
+        console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
+        torrentOptions.announceList = options.torrentOptions.announceList
+        console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
 
-    }
-    MTOS.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
-      deferred.resolve(torrent)
+      }
+      MTOS.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
+        resolve(torrent)
+      })
     })
-    return deferred.promise
+    return promise
   })
   .then(function (torrent) {
     console.log('created torrent', torrent)
@@ -104,21 +108,22 @@ MTOS.readContent = function (torrent, options) {
 }
 
 MTOS.torrentToBuffer = function (torrent) {
-  var deferred = q.defer()
-  console.log('beginning torrent read cycle', torrent)
-  var mtZip
-  for (var i = 0; i < torrent.files.length; i++) {
-    if (torrent.files[i].path === 'mt-data.zip') {
-      mtZip = torrent.files[i]
+  var promise = new Promise(function (resolve, reject) {
+    console.log('beginning torrent read cycle', torrent)
+    var mtZip
+    for (var i = 0; i < torrent.files.length; i++) {
+      if (torrent.files[i].path === 'mt-data.zip') {
+        mtZip = torrent.files[i]
+      }
     }
-  }
-  mtZip.getBuffer(function (error, buffer) {
-    if (error) {
-      throw new Error(error)
-    }
-    deferred.resolve(buffer)
+    mtZip.getBuffer(function (error, buffer) {
+      if (error) {
+        throw new Error(error)
+      }
+      resolve(buffer)
+    })
   })
-  return deferred.promise
+  return promise
 }
 
 MTOS.generateServerKey = MTOS.crypter.generateKeyPair
