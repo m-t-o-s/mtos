@@ -1,7 +1,7 @@
 'use strict'
 
 var mtos = require('../')
-var tape = require('blue-tape')
+var tape = require('tape')
 var q = require('q')
 
 var testingKeys = require('./testing-keys.json')
@@ -31,6 +31,7 @@ tape('keys loaded from strings are valid', function (t) {
     for (var i = 0; i < keys.length; i++) {
       ensureKey(keys[i], t)
     }
+    t.end()
   })
 })
 
@@ -38,24 +39,25 @@ tape('server keys are not equal', function (t) {
   return q.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
     t.notEqual(keys[0].publicKeyFingerprint, keys[1].publicKeyFingerprint, 'the keys have different fingerprints')
+    t.end()
   })
 })
 
 tape('can encrypt from a public and decrypt from a private key', function (t) {
   var keypairs
+  var content = {
+    secretMessage: 'there are secrets here'
+  }
   return q.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
     keypairs = keys
-    var content = {
-      secretMessage: 'there are secrets here'
-    }
-    return mtos.encryptContent(JSON.stringify(content), keypairs[1].publicKey)
+    return mtos.encryptContent(content, keypairs[1].publicKey)
   })
   .then(function (encryptedMessage) {
     return mtos.decryptContent(encryptedMessage, keypairs[1].privateKey)
   })
-  .then(function (message) {
-    var secretMessage = JSON.parse(message).secretMessage
-    t.equal(secretMessage, 'there are secrets here', 'decrypted secret message')
+  .then(function (decryptedContent) {
+    t.deepEqual(decryptedContent, content, 'decrypted secret message')
+    t.end()
   })
 })
