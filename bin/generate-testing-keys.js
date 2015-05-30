@@ -6,8 +6,8 @@ var fs = require('fs')
 var path = require('path')
 
 var testingKeys = {}
-var serverKeyOne = mtos.newServerKey()
-var serverKeyTwo = mtos.newServerKey()
+var serverKeyOne = mtos.generateServerKey()
+var serverKeyTwo = mtos.generateServerKey()
 
 console.log('generating testing keys')
 
