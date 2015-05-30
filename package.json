@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard && node bin/generate-testing-keys.js && tape test/*",
-    "dev": "node bin/generate-testing-keys.js && nodemon --exec 'tape test/* | tap-spec'"
+    "dev": "nodemon --exec 'tape test/* | tap-spec'"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL",
