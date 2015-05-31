@@ -8,7 +8,7 @@
     "dev": "nodemon --exec 'tape test/* | tap-spec'"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
-  "license": "LGPL",
+  "license": "LGPL-3.0",
   "dependencies": {
     "crypto": "0.0.3",
     "es6-promise": "^2.1.1",
