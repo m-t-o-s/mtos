@@ -1,5 +1,7 @@
 'use strict'
 
+require('es6-promise').polyfill()
+
 var events = require('events')
 var JSZip = require('jszip')
 
@@ -133,5 +135,9 @@ MTOS.newUserKey = MTOS.crypter.generateKeyPair
 MTOS.loadKeyFromStrings = MTOS.crypter.loadKeyFromStrings
 
 MTOS.publicKeyFromString = MTOS.crypter.publicKeyFromString
+
+MTOS.generateSharedPrivate = MTOS.crypter.generateSharedPrivate
+
+MTOS.deriveSharedSecret = MTOS.crypter.deriveSharedSecret
 
 module.exports = MTOS
