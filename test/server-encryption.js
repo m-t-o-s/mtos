@@ -25,7 +25,7 @@ function ensureKey (key, t) {
   return promise
 }
 
-tape('keys loaded from strings are valid', function (t) {
+tape('server keys loaded from strings are valid', function (t) {
   return Promise.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
     for (var i = 0; i < keys.length; i++) {
