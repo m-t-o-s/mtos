@@ -3,6 +3,26 @@
 var mtos = require('../')
 var tape = require('tape')
 
+var TorrentTracker = require('bittorrent-tracker').Server
+var tracker = new TorrentTracker({
+  http: true
+})
+tracker.listen(0)
+function waitForTracker (event) {
+  return new Promise(function (resolve) {
+    tracker.on(event, resolve)
+  })
+}
+waitForTracker('error', function (error) {
+  console.log('TRACKER ERROR', error)
+})
+waitForTracker('warning', function (error) {
+  console.log('TRACKER warning', error)
+})
+var trackerListening = waitForTracker('listening').then(function () {
+  console.log('ADDRESS', tracker.http.address())
+})
+
 var testingKeys = require('./testing-keys.json')
 
 var userKeyAlice = mtos.loadKeyFromStrings(testingKeys.userKeyAlice, {passphrase: 'alice'})
@@ -90,6 +110,14 @@ tape('can encrypt from a public key and decrypt from a private key', function (t
   })
   .then(function (decryptedContent) {
     t.deepEqual(decryptedContent, content, 'decrypted secret message')
+    t.end()
+  })
+})
+
+tape('can shut down tracker', function (t) {
+  trackerListening.then(function () {
+    tracker.close()
+    t.ok(tracker, 'tracker shut down')
     t.end()
   })
 })
