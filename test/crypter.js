@@ -92,18 +92,18 @@ tape('can encrypt from a public key and decrypt from a private key', function (t
 })
 
 var generateDH = mtos.generateSharedPrivate()
-  .then(function (dhOne) {
-    var promise = new Promise(function (resolve, reject) {
-      mtos.generateSharedPrivate(dhOne.prime)
-      .then(function (dhTwo) {
-        resolve({
-          dhOne: dhOne,
-          dhTwo: dhTwo
-        })
+.then(function (dhOne) {
+  var promise = new Promise(function (resolve, reject) {
+    mtos.generateSharedPrivate(dhOne.prime)
+    .then(function (dhTwo) {
+      resolve({
+        dhOne: dhOne,
+        dhTwo: dhTwo
       })
     })
-    return promise
   })
+  return promise
+})
 
 generateDH
 .then(function () {
