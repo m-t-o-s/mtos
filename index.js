@@ -78,7 +78,6 @@ MTOS.createContent = function (content, options) {
         console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
         torrentOptions.announceList = options.torrentOptions.announceList
         console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
-
       }
       MTOS.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
         resolve(torrent)
