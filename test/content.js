@@ -95,22 +95,37 @@ tape('can sign with a private key and verify from a public key', function (t) {
   })
 })
 
-tape('can encrypt from a public key and decrypt from a private key', function (t) {
-  var keypairs
-  var content = {
-    secretMessage: 'there are secrets here'
-  }
-  return Promise.all([userKeyAlice, userKeyBob])
-  .then(function (keys) {
-    keypairs = keys
-    return mtos.encryptContent(content, keypairs[0].publicKey)
-  })
-  .then(function (encryptedMessage) {
-    return mtos.decryptContent(encryptedMessage, keypairs[0].privateKey)
-  })
-  .then(function (decryptedContent) {
-    t.deepEqual(decryptedContent, content, 'decrypted secret message')
-    t.end()
+var messageAliceToBob = {
+  'data': [{
+    'type': 'this-is-a-uuid',
+    'id': '1',
+    'attributes': {
+      'body': 'A simple status message'
+    }
+  }]
+}
+
+tape('can create content with signed by alice, encrypted for bob', function (t) {
+  trackerListening.then(function () {
+    var trackerAddress = 'http://localhost:' + tracker.http.address().port + '/'
+    console.log('tracker address', trackerAddress)
+    return Promise.all([userKeyAlice, userKeyBob])
+    .then(function (keys) {
+      var options = {
+        encrypt: true,
+        publicKey: keys[1].publicKey,
+        privateKey: keys[0].privateKey,
+        torrentOptions: {
+          announce: [ trackerAddress ]
+        }
+      }
+      return mtos.createContent(messageAliceToBob, options)
+    })
+    .then(function (torrent) {
+      console.info(torrent)
+      console.info(torrent.magnetURI)
+      t.end()
+    })
   })
 })
 

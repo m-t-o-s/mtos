@@ -52,7 +52,6 @@ MTOS.signContent = MTOS.crypter.signContent
 MTOS.encryptContent = MTOS.crypter.encryptContent
 
 MTOS.createContent = function (content, options) {
-  console.log('creating content', content, options)
   var contentString = content
   return MTOS.signContent(contentString, options.privateKey)
   .then(function (signedContent) {
@@ -68,16 +67,13 @@ MTOS.createContent = function (content, options) {
   })
   .then(function (finalContent) {
     var content = finalContent
-    console.log('about to zip', content)
     return MTOS.createZip(content)
   })
   .then(function (zipfile) {
     var promise = new Promise(function (resolve, reject) {
       var torrentOptions = {name: 'mt-data.zip'}
       if (options.torrentOptions) {
-        console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
-        torrentOptions.announceList = options.torrentOptions.announceList
-        console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
+        torrentOptions.announce = options.torrentOptions.announce
       }
       MTOS.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
         resolve(torrent)
