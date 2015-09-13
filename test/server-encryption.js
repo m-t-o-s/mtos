@@ -1,6 +1,7 @@
 'use strict'
 
-var mtos = require('../')
+var MTOS = require('../')
+var mtos = new MTOS()
 var tape = require('tape')
 
 var testingKeys = require('./testing-keys.json')
