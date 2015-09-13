@@ -82,8 +82,8 @@ tape('user keys are not equal', function (t) {
 
 var messageAliceToBob = {
   'data': [{
-    'type': 'this-is-a-uuid',
-    'id': '1',
+    'type': 'status',
+    'id': 'this-is-a-uuid',
     'attributes': {
       'body': 'A simple status message'
     }
@@ -109,7 +109,7 @@ tape('can create content signed by alice, encrypted for bob', function (t) {
     })
     .then(function (torrent) {
       messageAliceToBobURI = torrent.magnetURI
-      t.ok(messageAliceToBobURI, 'enerated a magnet uri for alice\'s torrent')
+      t.ok(messageAliceToBobURI, 'generated a magnet uri for alice\'s torrent')
       t.end()
     })
   })
@@ -129,7 +129,8 @@ tape('can read content signed by alice, encrypted for bob', function (t) {
       }
       return mtosBob.readContent(messageAliceToBobURI, options)
     })
-    .then(function (torrent) {
+    .then(function (content) {
+      t.deepEqual(content, messageAliceToBob, 'can retrieve content')
       t.end()
     })
   })
