@@ -1,6 +1,10 @@
 'use strict'
 
-var mtos = require('../')
+var MTOS = require('../')
+var mtos = new MTOS()
+var mtosAlice = new MTOS()
+var mtosBob = new MTOS()
+var mtosEve = new MTOS()
 var tape = require('tape')
 
 var TorrentTracker = require('bittorrent-tracker').Server
@@ -20,14 +24,14 @@ waitForTracker('warning', function (error) {
   console.log('TRACKER warning', error)
 })
 var trackerListening = waitForTracker('listening').then(function () {
-  console.log('ADDRESS', tracker.http.address())
+  console.log('ADDRESS', tracker.udp.address())
 })
 
 var testingKeys = require('./testing-keys.json')
 
-var userKeyAlice = mtos.loadKeyFromStrings(testingKeys.userKeyAlice, {passphrase: 'alice'})
-var userKeyBob = mtos.loadKeyFromStrings(testingKeys.userKeyBob, {passphrase: 'bob'})
-var userKeyEve = mtos.loadKeyFromStrings(testingKeys.userKeyEve, {passphrase: 'eve'})
+var userKeyAlice = mtosAlice.loadKeyFromStrings(testingKeys.userKeyAlice, {passphrase: 'alice'})
+var userKeyBob = mtosBob.loadKeyFromStrings(testingKeys.userKeyBob, {passphrase: 'bob'})
+var userKeyEve = mtosEve.loadKeyFromStrings(testingKeys.userKeyEve, {passphrase: 'eve'})
 
 function ensureKey (key, t) {
   var promise = new Promise(function (resolve, reject) {
@@ -76,25 +80,6 @@ tape('user keys are not equal', function (t) {
   })
 })
 
-tape('can sign with a private key and verify from a public key', function (t) {
-  var keypairs
-  var content = {
-    secretMessage: 'this content is verifiable'
-  }
-  return Promise.all([userKeyAlice, userKeyBob])
-  .then(function (keys) {
-    keypairs = keys
-    return mtos.signContent(content, keypairs[1].privateKey)
-  })
-  .then(function (signedMessage) {
-    return mtos.verifyContent(signedMessage, keypairs[1].publicKey)
-  })
-  .then(function (verifiedContent) {
-    t.deepEqual(verifiedContent, content, 'verified verifiable message')
-    t.end()
-  })
-})
-
 var messageAliceToBob = {
   'data': [{
     'type': 'this-is-a-uuid',
@@ -105,10 +90,11 @@ var messageAliceToBob = {
   }]
 }
 
-tape('can create content with signed by alice, encrypted for bob', function (t) {
+var messageAliceToBobURI
+
+tape('can create content signed by alice, encrypted for bob', function (t) {
   trackerListening.then(function () {
-    var trackerAddress = 'http://localhost:' + tracker.http.address().port + '/'
-    console.log('tracker address', trackerAddress)
+    var trackerAddress = 'udp://localhost:' + tracker.udp.address().port
     return Promise.all([userKeyAlice, userKeyBob])
     .then(function (keys) {
       var options = {
@@ -119,11 +105,31 @@ tape('can create content with signed by alice, encrypted for bob', function (t) 
           announce: [ trackerAddress ]
         }
       }
-      return mtos.createContent(messageAliceToBob, options)
+      return mtosAlice.createContent(messageAliceToBob, options)
     })
     .then(function (torrent) {
-      console.info(torrent)
-      console.info(torrent.magnetURI)
+      messageAliceToBobURI = torrent.magnetURI
+      t.ok(messageAliceToBobURI, 'enerated a magnet uri for alice\'s torrent')
+      t.end()
+    })
+  })
+})
+
+tape('can read content signed by alice, encrypted for bob', function (t) {
+  trackerListening.then(function () {
+    var trackerAddress = 'http://localhost:' + tracker.http.address().port + '/'
+    return Promise.all([userKeyAlice, userKeyBob])
+    .then(function (keys) {
+      var options = {
+        publicKey: keys[0].publicKey,
+        privateKey: keys[1].privateKey,
+        torrentOptions: {
+          announce: [ trackerAddress ]
+        }
+      }
+      return mtosBob.readContent(messageAliceToBobURI, options)
+    })
+    .then(function (torrent) {
       t.end()
     })
   })

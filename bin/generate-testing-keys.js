@@ -1,6 +1,7 @@
 'use strict'
 
-var mtos = require('../')
+var MTOS = require('../')
+var mtos = new MTOS()
 var fs = require('fs')
 var path = require('path')
 
