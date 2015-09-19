@@ -116,6 +116,9 @@ var MTOS = function (options) {
     .then(function (content) {
       return self.verifyContent(content, options.publicKey)
     })
+    .then(function (contentString) {
+      return JSON.parse(contentString)
+    })
   }
 
   self.torrentToBuffer = function (torrent) {
@@ -128,6 +131,7 @@ var MTOS = function (options) {
       }
       mtZip.getBuffer(function (error, buffer) {
         if (error) {
+          console.log('error', error)
           throw new Error(error)
         }
         resolve(buffer)
