@@ -4,139 +4,153 @@ require('es6-promise').polyfill()
 
 var events = require('events')
 var JSZip = require('jszip')
+var WebTorrent = require('webtorrent')
+var crypter = require('./lib/crypter')
 
 var MTOS = function (options) {
   if (!(this instanceof MTOS)) return new MTOS(options)
   if (!options) options = {}
 
+  var self = this
+
   events.EventEmitter.call(this)
-}
 
-MTOS.connect = require('./lib/swarm')
-MTOS.torrentClient = require('./lib/webtorrent')
-MTOS.crypter = require('./lib/crypter')
+  self.connect = require('./lib/swarm')
+  self.torrentClient = new WebTorrent()
 
-MTOS.readTextFile = function (torrent) {
-  var promise = new Promise(function (resolve, reject) {
-    torrent.files[0].getBuffer(function (error, buffer) {
-      if (error) {
-        throw new Error(error)
-      }
-      resolve(buffer.toString('utf-8'))
-    })
-  })
-  return promise
-}
-
-MTOS.createZip = function (data) {
-  var promise = new Promise(function (resolve, reject) {
-    var zip = new JSZip()
-    zip.file('mt-data', data)
-    var zipfile = zip.generate({type: 'nodebuffer'})
-    resolve(zipfile)
-  })
-  return promise
-}
-
-MTOS.readZip = function (data) {
-  var promise = new Promise(function (resolve, reject) {
-    console.log('reading zip content', data)
-    var zip = new JSZip(data)
-    var content = zip.file('mt-data').asText()
-    resolve(content)
-  })
-  return promise
-}
-
-MTOS.signContent = MTOS.crypter.signContent
-MTOS.encryptContent = MTOS.crypter.encryptContent
-
-MTOS.createContent = function (content, options) {
-  console.log('creating content', content, options)
-  var contentString = content
-  return MTOS.signContent(contentString, options.privateKey)
-  .then(function (signedContent) {
-    var signedContentString = signedContent
-    if (options.encrypt) {
-      return MTOS.encryptContent(signedContentString, options.publicKey)
-    } else {
-      var promise = new Promise(function (resolve, reject) {
-        resolve(signedContentString)
-      })
-      return promise
-    }
-  })
-  .then(function (finalContent) {
-    var content = finalContent
-    console.log('about to zip', content)
-    return MTOS.createZip(content)
-  })
-  .then(function (zipfile) {
+  self.readTextFile = function (torrent) {
     var promise = new Promise(function (resolve, reject) {
-      var torrentOptions = {name: 'mt-data.zip'}
-      if (options.torrentOptions) {
-        console.log('TORRENT OPTIONS', torrentOptions, options.torrentOptions)
-        torrentOptions.announceList = options.torrentOptions.announceList
-        console.log('TORRENT OPTIONS', JSON.stringify(torrentOptions, null, 2))
-      }
-      MTOS.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
-        resolve(torrent)
+      torrent.files[0].getBuffer(function (error, buffer) {
+        if (error) {
+          throw new Error(error)
+        }
+        resolve(buffer.toString('utf-8'))
       })
     })
     return promise
-  })
-  .then(function (torrent) {
-    console.log('created torrent', torrent)
-    return torrent
-  })
-}
+  }
 
-MTOS.decryptContent = MTOS.crypter.decryptContent
-MTOS.verifyContent = MTOS.crypter.verifyContent
-
-MTOS.readContent = function (torrent, options) {
-  return MTOS.torrentToBuffer(torrent)
-  .then(function (mtZipBuffer) {
-    return MTOS.readZip(mtZipBuffer)
-  })
-  .then(function (mtData) {
-    console.log('read from zip', mtData)
-    return MTOS.decryptContent(mtData, options.privateKey)
-  })
-  .then(function (content) {
-    return MTOS.verifyContent(content, options.publicKey)
-  })
-}
-
-MTOS.torrentToBuffer = function (torrent) {
-  var promise = new Promise(function (resolve, reject) {
-    console.log('beginning torrent read cycle', torrent)
-    var mtZip
-    for (var i = 0; i < torrent.files.length; i++) {
-      if (torrent.files[i].path === 'mt-data.zip') {
-        mtZip = torrent.files[i]
-      }
-    }
-    mtZip.getBuffer(function (error, buffer) {
-      if (error) {
-        throw new Error(error)
-      }
-      resolve(buffer)
+  self.createZip = function (data) {
+    var promise = new Promise(function (resolve, reject) {
+      var zip = new JSZip()
+      zip.file('mt-data', data)
+      var zipfile = zip.generate({type: 'nodebuffer'})
+      resolve(zipfile)
     })
-  })
-  return promise
+    return promise
+  }
+
+  self.readZip = function (data) {
+    var promise = new Promise(function (resolve, reject) {
+      var zip = new JSZip(data)
+      var content = zip.file('mt-data').asText()
+      resolve(content)
+    })
+    return promise
+  }
+
+  self.signContent = crypter.signContent
+  self.encryptContent = crypter.encryptContent
+
+  self.createContent = function (content, options) {
+    var contentString = content
+    return self.signContent(contentString, options.privateKey)
+    .then(function (signedContent) {
+      var signedContentString = signedContent
+      if (options.encrypt) {
+        return self.encryptContent(signedContentString, options.publicKey)
+      } else {
+        var promise = new Promise(function (resolve, reject) {
+          resolve(signedContentString)
+        })
+        return promise
+      }
+    })
+    .then(function (finalContent) {
+      var content = finalContent
+      return self.createZip(content)
+    })
+    .then(function (zipfile) {
+      var promise = new Promise(function (resolve, reject) {
+        var torrentOptions = {name: 'mt-data.zip'}
+        if (options.torrentOptions) {
+          torrentOptions.announce = options.torrentOptions.announce
+        }
+        self.torrentClient.seed(zipfile, torrentOptions, function (torrent) {
+          resolve(torrent)
+        })
+      })
+      return promise
+    })
+    .then(function (torrent) {
+      return torrent
+    })
+  }
+
+  self.decryptContent = crypter.decryptContent
+  self.verifyContent = crypter.verifyContent
+
+  self.downloadTorrent = function (id, options) {
+    var promise = new Promise(function (resolve, reject) {
+      self.torrentClient.add(id, function (torrent) {
+        resolve(torrent)
+      })
+    })
+    .catch(function (error) {
+      console.log('add torrent error', error)
+    })
+    return promise
+  }
+
+  self.readContent = function (torrentID, options) {
+    return self.downloadTorrent(torrentID, options)
+    .then(function (torrent) {
+      return self.torrentToBuffer(torrent)
+    })
+    .then(function (mtZipBuffer) {
+      return self.readZip(mtZipBuffer)
+    })
+    .then(function (mtData) {
+      return self.decryptContent(mtData, options.privateKey)
+    })
+    .then(function (content) {
+      return self.verifyContent(content, options.publicKey)
+    })
+    .then(function (contentString) {
+      return JSON.parse(contentString)
+    })
+  }
+
+  self.torrentToBuffer = function (torrent) {
+    var promise = new Promise(function (resolve, reject) {
+      var mtZip
+      for (var i = 0; i < torrent.files.length; i++) {
+        if (torrent.files[i].path === 'mt-data.zip') {
+          mtZip = torrent.files[i]
+        }
+      }
+      mtZip.getBuffer(function (error, buffer) {
+        if (error) {
+          console.log('error', error)
+          throw new Error(error)
+        }
+        resolve(buffer)
+      })
+    })
+    return promise
+  }
+
+  self.generateServerKey = crypter.generateKeyPair
+
+  self.newUserKey = crypter.generateKeyPair
+
+  self.loadKeyFromStrings = crypter.loadKeyFromStrings
+
+  self.publicKeyFromString = crypter.publicKeyFromString
+
+  self.generateSharedPrivate = crypter.generateSharedPrivate
+
+  self.deriveSharedSecret = crypter.deriveSharedSecret
 }
-
-MTOS.generateServerKey = MTOS.crypter.generateKeyPair
-
-MTOS.newUserKey = MTOS.crypter.generateKeyPair
-
-MTOS.loadKeyFromStrings = MTOS.crypter.loadKeyFromStrings
-
-MTOS.publicKeyFromString = MTOS.crypter.publicKeyFromString
-
-MTOS.generateSharedPrivate = MTOS.crypter.generateSharedPrivate
-
-MTOS.deriveSharedSecret = MTOS.crypter.deriveSharedSecret
 
 module.exports = MTOS

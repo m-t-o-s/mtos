@@ -1,6 +1,7 @@
 'use strict'
 
-var mtos = require('../')
+var MTOS = require('../')
+var mtos = new MTOS()
 var tape = require('tape')
 
 var testingKeys = require('./testing-keys.json')
@@ -25,7 +26,7 @@ function ensureKey (key, t) {
   return promise
 }
 
-tape('keys loaded from strings are valid', function (t) {
+tape('server keys loaded from strings are valid', function (t) {
   return Promise.all([serverKeyOne, serverKeyTwo])
   .then(function (keys) {
     for (var i = 0; i < keys.length; i++) {
@@ -92,18 +93,18 @@ tape('can encrypt from a public key and decrypt from a private key', function (t
 })
 
 var generateDH = mtos.generateSharedPrivate()
-  .then(function (dhOne) {
-    var promise = new Promise(function (resolve, reject) {
-      mtos.generateSharedPrivate(dhOne.prime)
-      .then(function (dhTwo) {
-        resolve({
-          dhOne: dhOne,
-          dhTwo: dhTwo
-        })
+.then(function (dhOne) {
+  var promise = new Promise(function (resolve, reject) {
+    mtos.generateSharedPrivate(dhOne.prime)
+    .then(function (dhTwo) {
+      resolve({
+        dhOne: dhOne,
+        dhTwo: dhTwo
       })
     })
-    return promise
   })
+  return promise
+})
 
 generateDH
 .then(function () {
