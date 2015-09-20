@@ -68,7 +68,7 @@ tape('can sign with a private key and verify from a public key', function (t) {
     return mtos.verifyContent(encryptedMessage, keypairs[1].publicKey)
   })
   .then(function (verifiedContent) {
-    t.deepEqual(verifiedContent, content, 'verified verifiable message')
+    t.deepEqual(verifiedContent, JSON.stringify(content), 'verified verifiable message')
     t.end()
   })
 })
