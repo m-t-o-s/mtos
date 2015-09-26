@@ -1,23 +1,29 @@
 {
   "name": "mtos",
   "version": "0.0.0",
-  "description": "an mtos interaction module that may be used in the browser or on the server",
+  "description": "package and encrypt content then distribute it over webtorrent and webrtc",
   "main": "index.js",
   "scripts": {
-    "test": "standard && node bin/generate-testing-keys.js && tape test/*",
-    "dev": "nodemon --exec 'tape test/* | tap-spec'"
+    "test": "standard && node bin/generate-testing-keys.js && tape test/*/*.js",
+    "dev": "nodemon --watch '**/*.js' --exec 'tape test/*/*.js | tap-spec'",
+    "docs": "jsdoc --readme README.md -d docs *.js lib/*.js"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL-3.0",
   "dependencies": {
-    "crypto": "0.0.3",
+    "diffie-hellman": "^3.0.2",
     "es6-promise": "^3.0.2",
     "events": "^1.0.2",
+    "friends-swarm": "https://github.com/diffalot/friends-swarm.git#mtos",
+    "get-browser-rtc": "^1.0.0",
     "jszip": "^2.5.0",
+    "level-browserify": "^1.0.1",
     "node-forge": "^0.6.26",
     "signalhub": "^4.0.2",
-    "webrtc-swarm": "^2.3.0",
-    "webtorrent": "^0.72.2"
+    "subleveldown": "^2.0.0",
+    "webrtc-swarm": "^1.2.0",
+    "webtorrent": "^0.72.2",
+    "wrtc": "0.0.59"
   },
   "devDependencies": {
     "bittorrent-tracker": "^7.0.1",

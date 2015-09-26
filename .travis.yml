@@ -1,5 +1,10 @@
+dist: trusty
+sudo: true
 language: node_js
 node_js:
-  - 'stable'
-before_script:
-    - npm install -g tape
+  - 'v5.5.0'
+compiler:
+  - clang
+before_install:
+  - npm --version
+  - npm install -g tape

@@ -1,2 +1,4 @@
 node_modules
+mtdata-*
+docs
 test/testing-keys.json
