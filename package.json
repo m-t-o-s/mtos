@@ -4,7 +4,7 @@
   "description": "package and encrypt content then distribute it over webtorrent and webrtc",
   "main": "index.js",
   "scripts": {
-    "test": "standard && node bin/generate-testing-keys.js && tape test/*/*.js",
+    "test": "standard && node bin/generate-testing-keys.js && tape test/*/*.js | tap-spec",
     "dev": "nodemon --watch '**/*.js' --exec 'tape test/*/*.js | tap-spec'",
     "docs": "jsdoc --readme README.md -d docs *.js lib/*.js"
   },
