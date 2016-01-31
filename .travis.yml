@@ -5,6 +5,7 @@ node_js:
   - 'v5.5.0'
 compiler:
   - clang
+cache: node_modules
 before_install:
   - npm --version
   - npm install -g tape
