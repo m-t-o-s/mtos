@@ -1,10 +1,10 @@
-[![mtos logo](https://git.diff.mx/uploads/group/avatar/6/aiga_litter_disposal_bg.png)](https://git.diff.mx/groups/mtos)
+[![mtos logo](https://cdn.rawgit.com/m-t-o-s/artwork/master/logo.png)](https://github.com/m-t-o-s/mtos)
 
 # mtos
 
 [![Build Status](https://travis-ci.org/m-t-o-s/mtos.svg?branch=master)](https://travis-ci.org/m-t-o-s/mtos)
 
-*[https://git.diff.mx/mtos/mtos](https://git.diff.mx/mtos/mtos)*
+*[https://github.com/m-t-o-s/mtos](https://github.com/m-t-o-s/mtos)*
 
 ***This project is at version v0.0.0***
 
