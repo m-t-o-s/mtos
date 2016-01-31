@@ -7,10 +7,6 @@ var path = require('path')
 
 var keysJSON = path.join(__dirname + '/../test/testing-keys.json')
 
-var testingKeys = {}
-var serverKeyOne = mtos.generateServerKey()
-var serverKeyTwo = mtos.generateServerKey()
-
 var optionsAlice = {
   username: 'alice',
   passphrase: 'alice'
@@ -33,14 +29,18 @@ try {
 }
 
 function generateKeys () {
+  console.log('generating testing keys')
+
+  var testingKeys = {}
+  var serverKeyOne = mtos.generateServerKey()
+  var serverKeyTwo = mtos.generateServerKey()
   var userKeyAlice = mtos.newUserKey(optionsAlice)
   var userKeyBob = mtos.newUserKey(optionsBob)
   var userKeyEve = mtos.newUserKey(optionsEve)
 
-  console.log('generating testing keys')
-
   return Promise.all([serverKeyOne, serverKeyTwo, userKeyAlice, userKeyBob, userKeyEve])
   .then(function (keys) {
+    console.log('all keys generated')
     var promise = new Promise(function (resolve, reject) {
       for (var i = 0; i < keys.length; ++i) {
         delete keys[i].privateKey
