@@ -1,6 +1,6 @@
 'use strict'
 
-var MTOS = require('../')
+var MTOS = require('../../')
 var mtos = new MTOS()
 var mtosAlice = new MTOS()
 var mtosBob = new MTOS()
@@ -27,11 +27,11 @@ var trackerListening = waitForTracker('listening').then(function () {
   console.log('ADDRESS', tracker.udp.address())
 })
 
-var testingKeys = require('./testing-keys.json')
+var testingKeys = require('../testing-keys.json')
 
-var userKeyAlice = mtosAlice.loadKeyFromStrings(testingKeys.userKeyAlice, {passphrase: 'alice'})
-var userKeyBob = mtosBob.loadKeyFromStrings(testingKeys.userKeyBob, {passphrase: 'bob'})
-var userKeyEve = mtosEve.loadKeyFromStrings(testingKeys.userKeyEve, {passphrase: 'eve'})
+var userKeyAlice = mtosAlice.unlockIdentity(testingKeys.userKeyAlice, 'alice')
+var userKeyBob = mtosBob.unlockIdentity(testingKeys.userKeyBob, 'bob')
+var userKeyEve = mtosEve.unlockIdentity(testingKeys.userKeyEve, 'eve')
 
 function ensureKey (key, t) {
   var promise = new Promise(function (resolve, reject) {
