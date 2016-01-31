@@ -6,7 +6,9 @@ node_js:
   - 'v4.2.6'
 compiler:
   - clang
-cache: node_modules
+cache:
+  directories:
+    - node_modules
 before_install:
   - npm --version
   - npm install -g tape
