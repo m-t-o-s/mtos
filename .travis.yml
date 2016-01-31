@@ -3,6 +3,7 @@ sudo: true
 language: node_js
 node_js:
   - 'v5.5.0'
+  - 'v4.2.6'
 compiler:
   - clang
 cache: node_modules
