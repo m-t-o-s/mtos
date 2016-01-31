@@ -2,6 +2,8 @@
 
 # mtos
 
+[![Build Status](https://travis-ci.org/m-t-o-s/mtos.svg?branch=master)](https://travis-ci.org/m-t-o-s/mtos)
+
 *[https://git.diff.mx/mtos/mtos](https://git.diff.mx/mtos/mtos)*
 
 ***This project is at version v0.0.0***

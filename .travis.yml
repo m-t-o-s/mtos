@@ -3,8 +3,13 @@ sudo: true
 language: node_js
 node_js:
   - 'v5.5.0'
+  - 'v4.2.6'
+  - 'v0.12.9'
 compiler:
   - clang
+cache:
+  directories:
+    - node_modules
 before_install:
   - npm --version
   - npm install -g tape
