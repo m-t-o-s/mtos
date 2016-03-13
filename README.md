@@ -23,7 +23,6 @@ The message notification ifrastructure is p2p WebRTC datachannels established th
 
 # Development
 
-    npm install -g standard tape nodemon jsdoc
     npm install
     npm test
     npm run docs
