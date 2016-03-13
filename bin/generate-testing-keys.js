@@ -5,7 +5,7 @@ var mtos = new MTOS()
 var fs = require('fs')
 var path = require('path')
 
-var keysJSON = path.join(__dirname + '/../test/testing-keys.json')
+var keysJSON = path.join(__dirname, '/../test/testing-keys.json')
 
 var optionsAlice = {
   username: 'alice',
