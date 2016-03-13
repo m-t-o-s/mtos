@@ -12,4 +12,3 @@ cache:
     - node_modules
 before_install:
   - npm --version
-  - npm install -g tape
