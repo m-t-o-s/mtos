@@ -26,7 +26,7 @@
     "wrtc": "0.0.59"
   },
   "devDependencies": {
-    "bittorrent-tracker": "^7.4.0",
+    "bittorrent-tracker": "^8.0.5",
     "jsdoc": "^3.4.0",
     "nodemon": "^1.9.1",
     "standard": "^6.0.8",
