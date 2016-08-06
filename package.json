@@ -23,7 +23,7 @@
     "subleveldown": "^2.1.0",
     "webrtc-swarm": "^2.4.0",
     "webtorrent": "^0.96.0",
-    "wrtc": "0.0.59"
+    "wrtc": "0.0.60"
   },
   "devDependencies": {
     "bittorrent-tracker": "^8.0.8",
