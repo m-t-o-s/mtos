@@ -29,7 +29,7 @@
     "bittorrent-tracker": "^8.0.8",
     "jsdoc": "^3.4.0",
     "nodemon": "^1.9.1",
-    "standard": "^6.0.8",
+    "standard": "^7.0.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1"
   },
