@@ -16,7 +16,7 @@
     "events": "^1.1.0",
     "friends-swarm": "https://github.com/diffalot/friends-swarm.git#mtos",
     "get-browser-rtc": "^1.0.2",
-    "jszip": "^2.5.0",
+    "jszip": "^3.1.0",
     "level-browserify": "^1.1.0",
     "node-forge": "^0.6.39",
     "signalhub": "^4.3.2",
