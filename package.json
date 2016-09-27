@@ -12,7 +12,7 @@
   "license": "LGPL-3.0",
   "dependencies": {
     "diffie-hellman": "^5.0.2",
-    "es6-promise": "^3.1.2",
+    "es6-promise": "^4.0.3",
     "events": "^1.1.0",
     "friends-swarm": "https://github.com/diffalot/friends-swarm.git#mtos",
     "get-browser-rtc": "^1.0.2",
