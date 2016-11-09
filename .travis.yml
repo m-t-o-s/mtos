@@ -2,9 +2,8 @@ dist: trusty
 sudo: true
 language: node_js
 node_js:
-  - 'v5.8'
-  - 'v4.4'
-  - 'v0.12'
+  - 'v7'
+  - 'v6'
 compiler:
   - clang
 cache:

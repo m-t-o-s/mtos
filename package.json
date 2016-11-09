@@ -12,26 +12,26 @@
   "license": "LGPL-3.0",
   "dependencies": {
     "diffie-hellman": "^5.0.2",
-    "es6-promise": "^3.1.2",
-    "events": "^1.1.0",
+    "es6-promise": "^4.0.5",
+    "events": "^1.1.1",
     "friends-swarm": "https://github.com/diffalot/friends-swarm.git#mtos",
     "get-browser-rtc": "^1.0.2",
-    "jszip": "^2.5.0",
+    "jszip": "^3.1.3",
     "level-browserify": "^1.1.0",
-    "node-forge": "^0.6.39",
-    "signalhub": "^4.3.2",
+    "node-forge": "^0.6.45",
+    "signalhub": "^4.7.4",
     "subleveldown": "^2.1.0",
-    "webrtc-swarm": "^2.4.0",
-    "webtorrent": "^0.96.0",
-    "wrtc": "0.0.59"
+    "webrtc-swarm": "^2.8.0",
+    "webtorrent": "^0.97.2",
+    "wrtc": "0.0.61"
   },
   "devDependencies": {
-    "bittorrent-tracker": "^8.0.8",
-    "jsdoc": "^3.4.0",
-    "nodemon": "^1.9.1",
-    "standard": "^6.0.8",
+    "bittorrent-tracker": "^8.0.12",
+    "jsdoc": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "standard": "^8.5.0",
     "tap-spec": "^4.1.1",
-    "tape": "^4.5.1"
+    "tape": "^4.6.2"
   },
   "standard": {
     "ignore": [
