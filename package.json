@@ -22,7 +22,7 @@
     "signalhub": "^4.7.4",
     "subleveldown": "^2.1.0",
     "webrtc-swarm": "^2.8.0",
-    "webtorrent": "^0.97.2",
+    "webtorrent": "^0.98.0",
     "wrtc": "0.0.61"
   },
   "devDependencies": {
