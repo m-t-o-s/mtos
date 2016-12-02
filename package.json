@@ -6,7 +6,11 @@
   "scripts": {
     "test": "standard && node bin/generate-testing-keys.js && tape test/*/*.js | tap-spec",
     "dev": "nodemon --watch '**/*.js' --exec 'tape test/*/*.js | tap-spec'",
-    "docs": "jsdoc --readme README.md -d docs *.js lib/*.js"
+    "docs:jsdoc": "jsdoc2md *.js lib/*.js > docs/api.md",
+    "docs:clean": "rimraf _book",
+    "docs:prepare": "gitbook install",
+    "docs:build": "npm run docs:jsdoc && npm run docs:prepare && gitbook build -g yelouafi/redux-saga",
+    "docs:watch": "npm run docs:jsdoc && npm run docs:prepare && gitbook serve"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
   "license": "LGPL-3.0",
@@ -27,7 +31,8 @@
   },
   "devDependencies": {
     "bittorrent-tracker": "^8.0.12",
-    "jsdoc": "^3.4.2",
+    "gitbook-cli": "^2.3.0",
+    "jsdoc-to-markdown": "^2.0.1",
     "nodemon": "^1.11.0",
     "standard": "^8.6.0",
     "tap-spec": "^4.1.1",
