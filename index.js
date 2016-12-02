@@ -18,7 +18,7 @@ var Archiver = require('./lib/archiver')
  * @param {object} options.key
  * @param {string} options.key.publicKey A base64 encoded public key string
  * @param {string} options.key.privateKey A base64 encoded private key string
- * @param {array} options.hubs A list of URLs for signahubs to connect through
+ * @param {array} options.hubs A list of URLs for signalhubs to connect through
  * @param {array} options.trackers A list of URLs for webtorrent to use when finding peers
  * @returns {object} An Event Emitter
  * @example
