@@ -29,7 +29,7 @@ camping trips, new shoes.  Or perhaps you'll click today's 50th ad for the
 rucksack you were looking at yesterday.
 
 That image you've constructed in your mind of the subtle patterns emerging from
-your datatrail is the way corporations see you.
+your trail of datapoints is the way corporations see you.
 
 But what if, dear Smotchkiss, what if... what if your data trail looked like a
 hopeless jumble of white noise, what if the randomness of your trail was so
