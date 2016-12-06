@@ -34,7 +34,8 @@ and peer discovery is provided by
 
 1. A network graph may be constructed of who talks to whom by analyzing either
    the peers of the torrent swarms or the WebRTC messaging patterns.
-1. Neither the keychain storage nor the torrent data storage is encrypted.
+1. Neither the keychain storage nor the torrent data storage is encrypted on
+   any peer.
 
 # Development
 
