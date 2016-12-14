@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint index.js lib/**/*.js test/**/*.js",
     "test": "npm run lint && node bin/generate-testing-keys.js && tape test/*/*.js | tap-spec",
+    "build:forge": "cd node_modules/node-forge && npm install && npm run minify",
     "dev": "nodemon --watch '**/*.js' --exec 'tape test/*/*.js | tap-spec'",
     "docs:jsdoc": "jsdoc2md *.js lib/*.js > docs/api.md",
     "docs:jsdoc:watch": "nodemon --ignore _book --exec npm run docs:jsdoc &",
