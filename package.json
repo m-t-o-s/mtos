@@ -39,9 +39,15 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.6.2"
   },
-  "standard": {
-    "ignore": [
-      "docs"
-    ]
+  "eslintConfig": {
+    "extends": [
+      "standard"
+    ],
+    "globals": {
+    },
+    "rules": {
+      "no-multi-spaces": 0,
+      "standard/object-curly-even-spacing": 0
+    }
   }
 }
