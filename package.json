@@ -4,9 +4,10 @@
   "description": "package and encrypt content then distribute it over webtorrent and webrtc",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js lib/**/*.js test/**/*.js",
-    "test": "npm run lint && node bin/generate-testing-keys.js && tape test/*/*.js | tap-spec",
-    "dev": "nodemon --watch '**/*.js' --exec 'tape test/*/*.js | tap-spec'",
+    "test": "npm run test:lint && npm run test:spec",
+    "test:lint": "eslint index.js lib/**/*.js test/**/*.js",
+    "test:spec": "tape -r babel-register **/*.spec.js | tap-spec",
+    "dev": "tape-watch -r babel-register **/*.spec.js | tap-spec",
     "docs:jsdoc": "jsdoc2md *.js lib/*.js > docs/api.md",
     "docs:jsdoc:watch": "nodemon --ignore _book --exec npm run docs:jsdoc &",
     "docs:clean": "rimraf _book",
@@ -24,14 +25,16 @@
     "get-browser-rtc": "^1.0.2",
     "jszip": "^3.1.3",
     "level-browserify": "^1.1.0",
-    "node-forge": "^0.6.45",
     "signalhub": "^4.7.4",
+    "sodium-encryption": "^1.2.2",
     "subleveldown": "^2.1.0",
     "webrtc-swarm": "^2.8.0",
     "webtorrent": "^0.98.0",
     "wrtc": "0.0.61"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babel-register": "^6.18.0",
     "bittorrent-tracker": "^8.0.12",
     "eslint": "^3.12.2",
     "eslint-config-standard": "^6.2.1",
@@ -39,9 +42,12 @@
     "eslint-plugin-standard": "^2.0.1",
     "gitbook-cli": "^2.3.0",
     "jsdoc-to-markdown": "^2.0.1",
-    "nodemon": "^1.11.0",
     "tap-spec": "^4.1.1",
-    "tape": "^4.6.2"
+    "tape": "^4.6.2",
+    "tape-watch": "^2.2.4"
+  },
+  "babel": {
+    "presets": ["es2015"]
   },
   "eslintConfig": {
     "extends": [
