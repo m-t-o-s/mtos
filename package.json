@@ -9,7 +9,6 @@
     "test:spec": "tape -r babel-register **/*.spec.js | tap-spec",
     "dev": "tape-watch -r babel-register **/*.spec.js | tap-spec",
     "docs:jsdoc": "jsdoc2md *.js lib/*.js > docs/api.md",
-    "docs:jsdoc:watch": "nodemon --ignore _book --exec npm run docs:jsdoc &",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:jsdoc && npm run docs:prepare && gitbook build -g yelouafi/redux-saga",
