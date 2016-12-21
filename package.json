@@ -8,10 +8,10 @@
     "test:lint": "eslint index.js lib/**/*.js test/**/*.js",
     "test:spec": "tape -r babel-register **/*.spec.js | tap-spec",
     "dev": "tape-watch -r babel-register **/*.spec.js | tap-spec",
-    "docs:jsdoc": "jsdoc2md *.js lib/*.js > docs/api.md",
+    "docs:jsdoc": "jsdoc2md lib/*.js > docs/api.md",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
-    "docs:build": "npm run docs:jsdoc && npm run docs:prepare && gitbook build -g yelouafi/redux-saga",
+    "docs:build": "npm run docs:jsdoc && npm run docs:prepare && gitbook build",
     "docs:watch": "npm run docs:jsdoc && npm run docs:prepare && gitbook serve"
   },
   "author": "Andrew Davis <diffalot@diff.mx>",
