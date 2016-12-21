@@ -1,4 +1,5 @@
 node_modules
+npm-debug.log
 mtdata-*
 _book
 test/testing-keys.json
